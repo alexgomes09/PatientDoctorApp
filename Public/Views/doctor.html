@@ -1,5 +1,5 @@
 <a href="#/home" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
-<form class="container form-horizontal" ng-submit="submitDoctor(firstName)">
+<form class="container form-horizontal" ng-submit="submitDoctor(doctor)">
 
 <!-- Form Name -->
 <h1>Register new doctor</h1>
@@ -9,8 +9,7 @@
 <div class="form-group">
   <label class="col-lg-3 control-label">First Name</label>  
   <div class="col-lg-7">
-  <input id="textinput" type="text" placeholder="enter doctor's first name" name="firstName" class="form-control input-lg" ng-model="firstName" required="">
-    
+  <input id="textinput" type="text" placeholder="enter doctor's first name" class="form-control input-lg" ng-model="doctor.firstName" required="">
   </div>
 </div>
 
@@ -18,7 +17,7 @@
 <div class="form-group">
   <label class="col-lg-3 control-label" for="textinput">Last Name</label>  
   <div class="col-lg-7">
-  <input id="textinput" name="textinput" type="text" placeholder="enter doctor's last name" class="form-control input-lg" ng-model="lastName" required="">
+  <input id="textinput" name="textinput" type="text" placeholder="enter doctor's last name" class="form-control input-lg" ng-model="doctor.lastName" required="">
     
   </div>
 </div>

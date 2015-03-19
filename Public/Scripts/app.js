@@ -16,13 +16,13 @@ app.config(['$routeProvider',
         });
     }]);
 
-app.controller("DoctorController", function ($scope, $location, Patient) {
+app.controller("DoctorController", function ($scope, $location, DoctorPatientService) {
 
    $scope.submitDoctor = function(doctor){
-	  console.log(firstName);
-	  console.log(lastName);
+	  console.log(doctor.firstName);
+	  console.log(doctor.lastName);
+	   DoctorPatientService.putDoctor(doctor);
    }
-   
    
     $scope.selectedPatient = function (patient) {
         $location.path('/PatientDetails');
@@ -35,16 +35,10 @@ app.controller("MainController",function($scope,$location){
 });
 
 
-app.service("Patient", ['$http', function ($http) {
-    var url = '../Data/Patient.json';
-    var patientDetails = '';
+app.service("DoctorPatientService", ['$http', function ($http) {
 
-    this.getPatient = function () {
-        return $http.get(url);
-    };
-    
-    this.putPatient = function (data) {
-        return $http.post('/save',data);
+	this.putDoctor = function (data) {
+        return $http.post('/submitDoctor',data);
     };
 
     this.getPatientDetails = function () {
