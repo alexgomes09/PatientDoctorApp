@@ -1,7 +1,7 @@
 var http = require('http');
 var express = require('express');
-require("router");
 var app = express();
+require('./router');
 var port = process.env.port || 3000;
 
 app.use(express.static( __dirname + '/Public'));
@@ -35,7 +35,6 @@ var db = new Db('ChatDB', new Server('localhost', 27017),{safe:false});
 //         
 //          });
 //        });
-
 
 app.listen(port);
 console.log('port running at 1337');

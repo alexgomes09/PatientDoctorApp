@@ -24,14 +24,12 @@ app.controller("DoctorController", function ($scope, $location, DoctorPatientSer
 	   DoctorPatientService.putDoctor(doctor);
    }
    
-    $scope.selectedPatient = function (patient) {
-        $location.path('/PatientDetails');
-        Patient.setPatientDetails(patient);
-    };
+   
 });
 
-app.controller("MainController",function($scope,$location){
-    
+app.controller("MainController",function($scope,DoctorPatientService){
+  
+	
 });
 
 
@@ -41,11 +39,5 @@ app.service("DoctorPatientService", ['$http', function ($http) {
         return $http.post('/submitDoctor',data);
     };
 
-    this.getPatientDetails = function () {
-        return patientDetails;
-    };
-    this.setPatientDetails = function (value) {
-        patientDetails = value;
-    };
 
 }]);
