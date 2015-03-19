@@ -1,0 +1,25 @@
+{
+  "name": "DoctorPatientApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.10.2",
+    "mongodb": "^1.4.34"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexgomes09/test.git"
+  },
+  "author": "AlexGomes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexgomes09/test/issues"
+  },
+  "homepage": "https://github.com/alexgomes09/test"
+}
