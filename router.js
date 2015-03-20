@@ -7,17 +7,21 @@ module.exports = function(app,bodyParser,db){
 	var doctor = router.route('/submitDoctor');
 	
 	doctor.post(function(req, res) {
-        console.log(req.body)
+		db.open(function(err, result) {
+          db.collection("Doctor").insert([{firstName:req.body.firstName,lastName:req.body.lastName}], {w:1}, function(err, result) {
+              db.close();
+         
+          });
+        });
+		
+     
+		
 		res.sendStatus(200);
     });
 	
+
 	
-	db.open(function(err, db) {
-            db.dropCollection("chatHistory",function(err,result){
-                console.log(result);
-            db.close();
-            })
-        });
+	
 	
 	
 	
