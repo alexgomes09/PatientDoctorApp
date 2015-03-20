@@ -1,23 +1,21 @@
-//module.exports = function(app,bodyParser){
-//	var express = require('express');
-//	var router = express.Router();
-//	
-//	app.post('/submitDoctor',bodyParser.json(),function(res,req){
-//		console.log(res.body);
-//		console.log(req.body);
-//	})
-//
-//};
+module.exports = function(app,bodyParser){
+	var express = require('express');
+	var router = express.Router();
+	
+	router.use(bodyParser.json());
+	
+	router.route('/submitDoctor').post(function(req, res) {
+        console.log(req.body)
+		res.sendStatus(200);
+    });
+	
+	
+	
+	
+	app.use('/',router);
 
-var express = require('express');
-var router = express.Router();
+};
 
-var doctor = router.route('/submitDoctor');
-
-doctor.get(function(res,req){
-	console.log(res);
-	console.log(req);
-})
 
 
 
