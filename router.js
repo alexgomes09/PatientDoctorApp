@@ -1,19 +1,29 @@
-module.exports = function(app,bodyParser){
+module.exports = function(app,bodyParser,db){
 	var express = require('express');
 	var router = express.Router();
 	
 	router.use(bodyParser.json());
 	
-	router.route('/submitDoctor').post(function(req, res) {
+	var doctor = router.route('/submitDoctor');
+	
+	doctor.post(function(req, res) {
         console.log(req.body)
 		res.sendStatus(200);
     });
 	
 	
+	db.open(function(err, db) {
+            db.dropCollection("chatHistory",function(err,result){
+                console.log(result);
+            db.close();
+            })
+        });
 	
+	
+	
+
 	
 	app.use('/',router);
-
 };
 
 
