@@ -1,10 +1,13 @@
+var bodyParser =require('body-parser');
 var http = require('http');
 var express = require('express');
 var app = express();
-require('./router');
+var router = require('./router'); //(app,bodyParser)
+
 var port = process.env.port || 3000;
 
 app.use(express.static( __dirname + '/Public'));
+
 
 app.get('/', function (req, res) {
     res.sendFile( __dirname + '/Public/Views/index.html');
