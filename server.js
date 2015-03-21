@@ -2,6 +2,7 @@ var bodyParser =require('body-parser');
 var http = require('http');
 var express = require('express');
 var app = express();
+require('./Public/Model/user');
 
 // mongo DB dependencies 
 var mongoose = require('mongoose');

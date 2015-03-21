@@ -1,18 +1,28 @@
-module.exports = function(app,bodyParser,mongoose){
-	var express = require('express');
-	var router = express.Router();
+var models = require('./Public/Model/user');
+var express = require('express');
+var router = express.Router();
+
+module.exports = function(app,bodyParser){
+
 	router.use(bodyParser.json());
 	var doctor = router.route('/submitDoctor');
-	var DoctorObject = mongoose.model('Doctors',{firstName:String,lastName:String});
+
+	
+
 	
 	doctor.post(function(req, res) {
-		var newDoctor = new DoctorObject({
+
+		var newDoctor = new models.Doctor({
 			firstName : req.body.firstName,
 			lastName : req.body.lastName
-		})
-		
+		});
+
 		newDoctor.save(function(err,data){
-			res.sendStatus(200);
+			if(err) {
+               console.log(err)
+            }else
+				console.log(data)
+				res.sendStatus(200);
 		})
     });
 	
