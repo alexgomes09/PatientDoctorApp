@@ -13,17 +13,8 @@ module.exports = function(app,bodyParser,db){
          
           });
         });
-		
-     
-		
 		res.sendStatus(200);
     });
-	
-
-	
-	
-	
-	
 	
 
 	
