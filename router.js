@@ -3,17 +3,35 @@ var express = require('express');
 var router = express.Router();
 
 module.exports = function(app,bodyParser){
-
+	var doctor,patient;
+	
+	//doctor = new models.Doctor;
+	
 	router.use(bodyParser.json());
-
+	
+	//router to login doctor and chec if it exist or not
+	router.route('/getDoctor').get(function(req,res){
+		
+		var firstName = req.query.firstName;
+		var lastName = req.query.lastName;
+		models.Doctor.findOne({firstName:firstName,lastName:lastName},function(err,data){
+			if(err){
+				console.log(err);
+			}else{
+				res.status(200).send(data);
+			}
+		})
+	})
+	
 	router.route('/submitDoctor').post(function(req, res) {
 
-		var newDoctor = new models.Doctor({
-			firstName : req.body.firstName,
-			lastName : req.body.lastName
+		//create doctor model;
+		doctor = new models.Doctor({
+			"firstName": req.body.firstName,
+			"lastName": req.body.lastName
 		});
-
-		newDoctor.save(function(err,data){
+		
+		doctor.save(function(err,data){
 			if(err) {
                console.log(err)
             }else
@@ -25,7 +43,8 @@ module.exports = function(app,bodyParser){
 	
 	router.route('/submitPatient').post(function(req,res){
 
-		var patient = new models.Patient({
+		//create patient model
+		patient = new models.Patient({
 			"firstName" : req.body.firstName,
 			"lastName" : req.body.lastName,
 			"visits":{
@@ -41,6 +60,7 @@ module.exports = function(app,bodyParser){
 			"lastModified": req.body.lastModified
 		});
 		
+		
 		patient.save(function(err,data){
 			if(err) {
                console.log(err)
@@ -52,7 +72,3 @@ module.exports = function(app,bodyParser){
 	
 	app.use('/',router);
 };
-
-
-
-

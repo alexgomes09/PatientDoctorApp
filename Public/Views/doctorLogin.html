@@ -1,1 +1,32 @@
-<h1>Doctor Login</h1>
+<a href="#/home" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
+<form class="container form-horizontal" ng-submit="loginDoctor(doctor)">
+
+<!-- Form Name -->
+<h1>Doctor Login Form</h1>
+<hr><br><br>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-lg-3 control-label">First Name</label>  
+  <div class="col-lg-7">
+  <input id="textinput" type="text" placeholder="enter doctor's first name" class="form-control input-lg" ng-model="doctor.firstName" required="">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-lg-3 control-label" for="textinput">Last Name</label>  
+  <div class="col-lg-7">
+  <input id="textinput" name="textinput" type="text" placeholder="enter doctor's last name" class="form-control input-lg" ng-model="doctor.lastName" required="">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <div class="col-lg-7 col-lg-offset-3">
+    <input type="submit" class="btn btn-info btn-lg btn-block" value="Login" />
+  </div>
+</div>
+
+</form>

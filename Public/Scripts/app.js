@@ -9,7 +9,7 @@ app.config(['$routeProvider',
         }).
         when('/doctorRegister', {
             templateUrl: 'Views/doctorRegister.html',
-            controller: 'DoctorController'
+            controller: 'DoctorRegisterController'
         }).
 		when('/doctorLogin', {
             templateUrl: 'Views/doctorLogin.html',
@@ -24,14 +24,28 @@ app.config(['$routeProvider',
         });
     }]);
 
-app.controller("DoctorController", function ($scope, $location, DoctorPatientService) {
+app.controller("DoctorRegisterController", function ($scope, $location, DoctorPatientService) {
 
    $scope.submitDoctor = function(doctor){
-	  console.log(doctor.firstName);
-	  console.log(doctor.lastName);
-	   DoctorPatientService.putDoctor(doctor);
+   		DoctorPatientService.putDoctor(doctor);
+	   $location.path('/home');
    }
 });
+
+app.controller("DoctorLogInController",function($scope,$location,DoctorPatientService){  
+
+	$scope.loginDoctor = function(doctor){
+		DoctorPatientService.getDoctor(doctor).success(function(data){
+			if(doctor.firstName == data.firstName && doctor.lastName == data.lastName){
+				$location.path('/home');
+			}else{
+				$location.path('/doctorRegister');
+			}
+		});
+	}
+	
+});
+
 
 app.controller("PatientController", function ($scope, $location, DoctorPatientService) {
 	
@@ -42,17 +56,10 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
 	
    $scope.submitPatient = function(patient){
 	   var name = patient.familyDoctor.firstName+' '+patient.familyDoctor.lastName;
-	  console.log(patient);
-	
 	   DoctorPatientService.putPatient(patient);
    }
-   
-   
 });
 
-app.controller("DoctorLogInController",function($scope){  
-	
-});
 
 app.controller("MainController",function($scope,DoctorPatientService){
   
@@ -61,7 +68,18 @@ app.controller("MainController",function($scope,DoctorPatientService){
 
 
 app.service("DoctorPatientService", ['$http', function ($http) {
+	
+	var doctorLogin='';
 
+	this.getDoctor = function(data){
+		return $http.get('/getDoctor',{
+			params:{
+				firstName : data.firstName,
+				lastName: data.lastName
+			}
+		});
+	}
+	
 	this.putDoctor = function (data) {
         return $http.post('/submitDoctor',data);
     };
