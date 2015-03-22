@@ -5,10 +5,8 @@ var router = express.Router();
 module.exports = function(app,bodyParser){
 
 	router.use(bodyParser.json());
-	var doctor = router.route('/submitDoctor');
-	var patient = router.route('/submitPatient');
-	
-	doctor.post(function(req, res) {
+
+	router.route('/submitDoctor').post(function(req, res) {
 
 		var newDoctor = new models.Doctor({
 			firstName : req.body.firstName,
@@ -24,11 +22,9 @@ module.exports = function(app,bodyParser){
 		})
     });
 	
-	patient.post(function(req,res){
+	
+	router.route('/submitPatient').post(function(req,res){
 
-		var firstName = req.body.familyDoctor.firstName;
-		var lastName = req.body.familyDoctor.lastName;
-		
 		var patient = new models.Patient({
 			"firstName" : req.body.firstName,
 			"lastName" : req.body.lastName,

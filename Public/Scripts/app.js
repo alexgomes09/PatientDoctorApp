@@ -7,9 +7,13 @@ app.config(['$routeProvider',
             templateUrl: 'Views/main.html',
             controller: 'MainController'
         }).
-        when('/doctor', {
-            templateUrl: 'Views/doctor.html',
+        when('/doctorRegister', {
+            templateUrl: 'Views/doctorRegister.html',
             controller: 'DoctorController'
+        }).
+		when('/doctorLogin', {
+            templateUrl: 'Views/doctorLogin.html',
+            controller: 'DoctorLogInController'
         }).
 		when('/patient', {
             templateUrl: 'Views/patient.html',
@@ -44,6 +48,10 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
    }
    
    
+});
+
+app.controller("DoctorLogInController",function($scope){  
+	
 });
 
 app.controller("MainController",function($scope,DoctorPatientService){
