@@ -32,20 +32,19 @@ app.controller("DoctorRegisterController", function ($scope, $location, DoctorPa
    }
 });
 
-app.controller("DoctorLogInController",function($scope,$location,DoctorPatientService){  
-
+app.controller("DoctorLogInController",function($rootScope,$scope,$location,DoctorPatientService){  
+	
 	$scope.loginDoctor = function(doctor){
 		DoctorPatientService.getDoctor(doctor).success(function(data){
 			if(doctor.firstName == data.firstName && doctor.lastName == data.lastName){
+				$rootScope.$emit('doctorLoggedIn',data);
 				$location.path('/home');
 			}else{
 				$location.path('/doctorRegister');
 			}
 		});
 	}
-	
 });
-
 
 app.controller("PatientController", function ($scope, $location, DoctorPatientService) {
 	
@@ -61,8 +60,11 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
 });
 
 
-app.controller("MainController",function($scope,DoctorPatientService){
-  
+app.controller("MainController",function($rootScope,$scope,DoctorPatientService){
+  	
+	$rootScope.$on('doctorLoggedIn', function(event, args) {
+		$scope.doctorName = args.firstName+" "+args.lastName;
+	});
 	
 });
 
