@@ -1,25 +1,29 @@
 <nav class="navbar navbar-default navbar-inverse">
-    <div class="container collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-        	
-        <a href="#/doctorLogin" class="btn btn-default navbar-btn navbar-left">Login Doctor</a> 
-          <a href="#/doctorRegister" class="btn btn-default navbar-btn navbar-left">Register Doctor </a>        
-          <a href="#/patient" class="btn btn-default navbar-btn navbar-left">Register Patient </a> 
+	<div class="container collapse navbar-collapse">
+		<ul class="nav navbar-nav">
 
-				<form class="navbar-form navbar-left" role="search">
-					 <div class="form-group">
-						 <input type="text" class="form-control" placeholder="Search patient..." />
-					 </div> 
-					 <button type="submit" class="btn btn-default">Search</button>
-				</form>
-            	
-            	<select class="btn btn navbar-left">
-					<option selected default disabled>Select Patient...</option>
-	       		</select>
-        </ul>
+			<a href="#/doctorLogin" class="btn btn-default navbar-btn navbar-left">Login Doctor</a>
+			<a href="#/doctorRegister" class="btn btn-default navbar-btn navbar-left">Register Doctor </a>
+			<a href="#/patient" class="btn btn-default navbar-btn navbar-left">Register Patient </a>
 
-    </div>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search patient..." />
+				</div>
+				<button type="submit" class="btn btn-default">Search</button>
+			</form>
+
+			<select class="btn btn navbar-left">
+				<option selected default disabled>Select Patient...</option>
+			</select>
+		</ul>
+
+	</div>
 </nav>
 
 <strong ng-show="currentDoctor">Current Doctor - {{:: currentDoctor}}</strong>
 
+
+<div>
+	<h3>Tree View</h3>
+</div>

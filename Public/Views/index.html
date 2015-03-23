@@ -1,35 +1,34 @@
 <html ng-app="DoctorPatientApp">
 
 <head>
-    <title>Doctor Patient App</title>
-    <meta http-equiv="refresh" content="1356354546354"/>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../Assets/style.css">
+	<title>Doctor Patient App</title>
+	<meta http-equiv="refresh" content="1356354546354" />
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="../Assets/style.css">
 
-    <script src="../Scripts/angular.js"></script>
-    <script src="../Scripts/angular-route.min.js"></script>
-    <script src="../Scripts/app.js"></script>
+	<script src="../Scripts/angular.js"></script>
+	<script src="../Scripts/angular-route.min.js"></script>
+	<script src="../Scripts/app.js"></script>
 </head>
 
 <body class="panel">
-  <div class="container">
-	<div class="row clearfix">
-        <div class="col-md-12 column">
-            <div ng-view></div>
-        </div>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div ng-view></div>
+			</div>
+		</div>
 	</div>
-</div>
-    
-<script>
-    function checkSubmission(){
-        var a = $("form[name='patientDetailsForm']").find("span:visible").length;
-        if(a === 0){
-            alert("Form Submitted! Check Patient list now ")
-        }
-    }
 
-	
-</script>
+	<script>
+		function checkSubmission() {
+			var a = $("form[name='patientDetailsForm']").find("span:visible").length;
+			if (a === 0) {
+				alert("Form Submitted! Check Patient list now ")
+			}
+		}
+	</script>
 
 </body>
+
 </html>
