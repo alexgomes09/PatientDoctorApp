@@ -32,12 +32,12 @@ app.controller("DoctorRegisterController", function ($scope, $location, DoctorPa
    }
 });
 
-app.controller("DoctorLogInController",function($rootScope,$scope,$location,DoctorPatientService){  
+app.controller("DoctorLogInController",function($scope,$location,DoctorPatientService){  
 	
 	$scope.loginDoctor = function(doctor){
 		DoctorPatientService.getDoctor(doctor).success(function(data){
 			if(doctor.firstName == data.firstName && doctor.lastName == data.lastName){
-				$rootScope.$emit('doctorLoggedIn',data);
+				DoctorPatientService.setCurrentDoctor(data);
 				$location.path('/home');
 			}else{
 				$location.path('/doctorRegister');
@@ -60,18 +60,22 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
 });
 
 
-app.controller("MainController",function($rootScope,$scope,DoctorPatientService){
-  	
-	$rootScope.$on('doctorLoggedIn', function(event, args) {
-		$scope.doctorName = args.firstName+" "+args.lastName;
-	});
+
+
+
+app.controller("MainController",function($scope,DoctorPatientService){
+	
+	if(Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0){
+		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName +" "+ DoctorPatientService.getCurrentDoctor().lastName;
+	}
+	
+
 	
 });
 
-
 app.service("DoctorPatientService", ['$http', function ($http) {
 	
-	var doctorLogin='';
+	var currentDoctor={};
 
 	this.getDoctor = function(data){
 		return $http.get('/getDoctor',{
@@ -90,5 +94,14 @@ app.service("DoctorPatientService", ['$http', function ($http) {
         return $http.post('/submitPatient',data);
     };
 
-
+	this.setCurrentDoctor = function(value){
+		currentDoctor.firstName = value.firstName;
+		currentDoctor.lastName = value.lastName;
+	}
+	
+	this.getCurrentDoctor = function(){
+		return currentDoctor;
+	}
+	
+	
 }]);
