@@ -27,33 +27,48 @@
 <div>
 	<h3>Tree View</h3>
 
-	<pre>{{parentNode}}</pre> {{data.name}}
+	<table class="table">
+		<tr ng-repeat="p in parentBranch">
+			<th>
+				<li>{{p.firstName +' '+p.lastName}}</li>
+			</th>
 
-	<table>
-		<tr>
-			<th>{{parentBranch}}</th>
-			<td>{{parentNode}}</td>
 		</tr>
+
 	</table>
 
+	<table class="table">
+		<tbody>
+			<tr ng-repeat="p in parentBranch">
+				<th>{{p.firstName +' '+p.lastName}}</th>
+				<td>{{p.age}}</td>
+				<td>{{p.visits.complaint}}</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+	<!--
+	{{data.name}}
+<button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</button>
+<ul>
+	<li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+</ul>
+
+
+<script type="text/ng-template" id="tree_item_renderer.html">
+	{{data.name}}
+	<button ng-click="add(data)">Add node</button>
 	<button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</button>
 	<ul>
 		<li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
 	</ul>
+</script>
 
-
-	<script type="text/ng-template" id="tree_item_renderer.html">
-		{{data.name}}
-		<button ng-click="add(data)">Add node</button>
-		<button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</button>
-		<ul>
-			<li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
-		</ul>
-	</script>
-
-	<ul>
-		<li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
-	</ul>
+<ul>
+	<li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+</ul>-->
 
 
 

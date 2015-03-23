@@ -75,12 +75,21 @@ app.controller("MainController", function ($scope, DoctorPatientService) {
 	}
 
 	DoctorPatientService.getPatient().success(function (patient) {
-			console.log(patient);
+		//console.log(patient);
 
-			$scope.parentBranch = patient[0].firstName + " " + patient[0].lastName;
+//		angular.forEach(patient, function (value, key) {
+				//			console.log(value)
+				//			console.log(key)
+				//		})
 
-		})
-		///////////
+		$scope.parentBranch = patient;
+
+		$scope.parentNode = patient;
+
+	})
+
+
+	///////////
 
 	$scope.delete = function (data) {
 		data.nodes = [];
@@ -129,7 +138,7 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 			method: "GET",
 			url: '/getPatient',
 			data: data,
-			cache: false
+			cache: true
 		})
 	};
 
@@ -145,6 +154,4 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	this.getCurrentDoctor = function () {
 		return currentDoctor;
 	}
-
-
 }]);
