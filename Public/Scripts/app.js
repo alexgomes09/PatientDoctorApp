@@ -1,4 +1,4 @@
-var app = angular.module("DoctorPatientApp", ['ngRoute']);
+var app = angular.module("DoctorPatientApp", ['ngRoute', 'angularTreeview']);
 
 app.config(['$routeProvider',
     function ($routeProvider) {
@@ -74,6 +74,36 @@ app.controller("MainController", function ($scope, DoctorPatientService) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
+	DoctorPatientService.getPatient().success(function (patient) {
+			console.log(patient);
+
+			$scope.parentBranch = patient[0].firstName + " " + patient[0].lastName;
+
+		})
+		///////////
+
+	$scope.delete = function (data) {
+		data.nodes = [];
+	};
+
+	$scope.add = function (data) {
+		var post = data.nodes.length + 1;
+		var newName = data.name + '-' + post;
+		data.nodes.push({
+			name: newName,
+			nodes: []
+		});
+	};
+
+	$scope.tree = [{
+		name: "Node",
+		nodes: []
+	}];
+
+	///////////
+
+
+
 });
 
 app.service("DoctorPatientService", ['$http', function ($http) {
@@ -87,10 +117,20 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 				lastName: data.lastName
 			}
 		});
-	}
+	};
 
 	this.putDoctor = function (data) {
 		return $http.post('/submitDoctor', data);
+	};
+
+
+	this.getPatient = function (data) {
+		return $http({
+			method: "GET",
+			url: '/getPatient',
+			data: data,
+			cache: false
+		})
 	};
 
 	this.putPatient = function (data) {
