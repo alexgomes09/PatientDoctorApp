@@ -12,8 +12,17 @@ option {
 	font-size: 1.5em;
 }
 
+#patientList >tbody > tr:first-child ,th {
+	text-align: center;
+	cursor: default;
+	color: red;
+	letter-spacing: 2.5px;
+}
+
 #patientList tr {
 	cursor: hand;
+	text-align: center;
+	
 }
 
 ul.nav li a {

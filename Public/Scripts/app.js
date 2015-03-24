@@ -70,26 +70,27 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
 	}
 });
 
-app.controller("MainController", function ($scope,$location, DoctorPatientService) {
+app.controller("MainController", function ($scope, $location, DoctorPatientService) {
 
 	if (Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
-	
-	
-	DoctorPatientService.getPatient().success(function (patient) {
-		
-		$scope.patientModel = patient;
-		
-		$scope.nextTenRecord = function () {
 
-			for(var i=0; i <= patient.length; i+=5){
-//				var newArray = patient.slice(5)[i];
-				
-				$scope.patientModel = patient.slice(0,i);
-			}
+
+	DoctorPatientService.getPatient().success(function (patient) {
+
+		$scope.currentPage = 0;
+		$scope.pageSize = 10;
+		$scope.data = patient;
+		$scope.numberOfPages = function () {
+			return Math.ceil($scope.data.length / $scope.pageSize);
 		}
+		for (var i = 0; i < 45; i++) {
+			$scope.patientModel = $scope.data;
+		}
+
+
 	})
 
 	$scope.selectedPatient = function (data) {
@@ -98,7 +99,14 @@ app.controller("MainController", function ($scope,$location, DoctorPatientServic
 	}
 });
 
-app.controller("PatientDetailsController",function($scope,DoctorPatientService){
+app.filter('startFrom', function () {
+	return function (input, start) {
+		start = +start; //parse to int
+		return input.slice(start);
+	}
+});
+
+app.controller("PatientDetailsController", function ($scope, DoctorPatientService) {
 	$scope.patient = DoctorPatientService.getPatientDetails();
 })
 
@@ -141,12 +149,12 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	this.getCurrentDoctor = function () {
 		return currentDoctor;
 	}
-	
-	this.setPatientDetails = function(value){
+
+	this.setPatientDetails = function (value) {
 		patientDetails = value;
 	}
-	
-	this.getPatientDetails = function(){
+
+	this.getPatientDetails = function () {
 		return patientDetails;
 	}
 

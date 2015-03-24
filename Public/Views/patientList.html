@@ -1,4 +1,4 @@
-
+<dir-pagination-controls></dir-pagination-controls>
 <br>
 <h2 class="text-center">Patient List </h2>
 <br>
@@ -8,25 +8,19 @@
 		<th>Last Name</th>
 		<th>Doctors Name</th>
 	</tr>
-	<tr 
-		ng-repeat="p in patientModel | filter: search" 
-	ng-click="selectedPatient(p)"
-	ng-bing-html-unsafe="patient.id"
-	ng-class="{active: activePage.page == $index, 
-				  inactive: activePage.page != $index}" >
-		  
+	<tr ng-repeat="p in patientModel | filter: search | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="selectedPatient(p)" ng-bing-html-unsafe="patient.id" dir-paginate="p in patientModel | itemsPerPage: 10" ng-class="{active: activePage.page == $index, 
+				  inactive: activePage.page != $index}">
+
 		<td>{{p.firstName}}</td>
 		<td>{{p.lastName}}</td>
 		<td>{{p.familyDoctor[0].firstName +" "+p.familyDoctor[0].lastName}}</td>
 	</tr>
 </table>
 
-<a href="" ng-click="nextTenRecord()">Next</a>
-
-
-<a ng-show="pages[$index - 1]" ng-click="activePage.page = $index-1" 
-   class="previous" href="#">Previous</a>
-<a ng-show="pages[$index + 1]" ng-click="activePage.page = $index+1" 
-   class="next" href="#">Next</a>   
-
-
+<button class="btn btn-lg btn-primary" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+	Previous
+</button>
+{{currentPage+1}}/{{numberOfPages()}}
+<button class="btn btn-lg btn-primary" ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+	Next
+</button>
