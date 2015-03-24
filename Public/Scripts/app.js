@@ -19,6 +19,10 @@ app.config(['$routeProvider',
 			templateUrl: 'Views/patient.html',
 			controller: 'PatientController'
 		}).
+		when('/patientDetails', {
+			templateUrl: 'Views/patientDetails.html',
+			controller: 'PatientDetailsController'
+		}).
 		otherwise({
 			redirectTo: '/home'
 		});
@@ -47,7 +51,6 @@ app.controller("DoctorLogInController", function ($scope, $location, DoctorPatie
 	}
 });
 
-
 app.controller("PatientController", function ($scope, $location, DoctorPatientService) {
 
 	$scope.patients = [
@@ -67,8 +70,7 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
 	}
 });
 
-
-app.controller("MainController", function ($scope, DoctorPatientService) {
+app.controller("MainController", function ($scope,$location, DoctorPatientService) {
 
 	if (Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
@@ -77,9 +79,7 @@ app.controller("MainController", function ($scope, DoctorPatientService) {
 	// when main controller loads get patient from database and set it to patientModel
 	DoctorPatientService.getPatient().success(function (patient) {
 
-		$scope.patientModel = patient.range(1,5);
-		
-		
+		$scope.patientModel = patient;
 		
 		$scope.nextTenRecord = function () {
 
@@ -93,20 +93,15 @@ app.controller("MainController", function ($scope, DoctorPatientService) {
 		}
 	})
 
-	// this part handles ng-include and sets appropriate view to the home page
-	$scope.patientView = "../Views/patientList.html"
-	$scope.patientListView = function () {
-		$scope.patientView = "../Views/patientList.html"
-	};
-
 	$scope.selectedPatient = function (data) {
-		console.log(data);
-		$scope.patient = data;
-		$scope.patientView = "../Views/patientDetails.html"
+		DoctorPatientService.setPatientDetails(data);
+		$location.path('/patientDetails')
 	}
-
-
 });
+
+app.controller("PatientDetailsController",function($scope,DoctorPatientService){
+	$scope.patient = DoctorPatientService.getPatientDetails();
+})
 
 app.service("DoctorPatientService", ['$http', function ($http) {
 
@@ -146,6 +141,14 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 
 	this.getCurrentDoctor = function () {
 		return currentDoctor;
+	}
+	
+	this.setPatientDetails = function(value){
+		patientDetails = value;
+	}
+	
+	this.getPatientDetails = function(){
+		return patientDetails;
 	}
 
 

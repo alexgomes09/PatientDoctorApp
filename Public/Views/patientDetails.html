@@ -1,33 +1,76 @@
-<a ng-click="patientListView()" >Patient List</a>
+<a href="#/home">Patient List</a>
 
 
 <h2 class="text-center"> Patient Details </h2>
 <br>
-<form method="POST" class="navbar-form navbar-left" name="patientDetailsForm" novalidate ng-submit="patientDetailsForm.$valid && submit(patient)">
+<form method="POST" class="container form-horizontal" name="patientDetailsForm" novalidate ng-submit="patientDetailsForm.$valid && submit(patient)">
+
 	<div class="form-group">
-		<input type="text" class="form-control" placeholder="First Name" ng-model="patient.firstName" name="firstName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
-		<span ng-show="patientDetailsForm.firstName.$error.pattern">Not valid first name!</span>
-
-		<input type="text" class="form-control " placeholder="Last Name " ng-model="patient.lastName" name="lastName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
-		<span ng-show="patientDetailsForm.lastName.$error.pattern">Not valid last name!</span>
-
-		<input type="text" class="form-control " placeholder="Phone Number (xxx) xxx-xxxx" ng-model="patient.phoneNo" name="phoneNo" ng-pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" required>
-		<span ng-show="patientDetailsForm.phoneNo.$error.pattern">Not valid Phone number!</span>
-
-		<input type="text" class="form-control " id="datepicker " placeholder="Calender (DD/MM/YYYY)" ng-model="patient.lastVisitDate" name="lastVisitDate" ng-pattern="/^\d{2}\/\d{2}\/\d{4}$/" required>
-		<span ng-show="patientDetailsForm.lastVisitDate.$error.pattern">Not correct Date! Follow the format</span>
-
-		<select class="form-control" ng-model="patient.Status" name="Status" required>
-			<option disabled selected>Choose Status</option>
-			<option disabled>{{patient.Status}}</option>
-			<option value="Active">Active</option>
-			<option value="InActive ">InActive</option>
-		</select>
-		<span ng-show="patientDetailsForm.Status.$error.required">Please select a value</span>
+		<label class="col-lg-3 control-label">First Name</label>
+		<div class="col-lg-7">
+			<input type="text" class="form-control input-lg" placeholder="First Name" ng-model="patient.firstName" name="firstName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
+			<span ng-show="patientDetailsForm.firstName.$error.pattern">Not valid first name!</span>
+		</div>
 	</div>
+
+	<div class="form-group">
+		<label class="col-lg-3 control-label">Last Name</label>
+		<div class="col-lg-7">
+			<input type="text" class="form-control input-lg" placeholder="Last Name " ng-model="patient.lastName" name="lastName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
+			<span ng-show="patientDetailsForm.lastName.$error.pattern">Not valid last name!</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-3 control-label">Age</label>
+		<div class="col-lg-7">
+			<input type="text" class="form-control input-lg" placeholder="Age" ng-model="patient.age" name="age" required>
+			<span ng-show="patientDetailsForm.age.$error.pattern">Not valid age!</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-3 control-label">Created At</label>
+		<div class="col-lg-7">
+			<input type="text" class="form-control input-lg" id="datepicker " placeholder="Calender (DD/MM/YYYY)" ng-model="patient.createdAt" name="lastVisitDate" ng-pattern="/^\d{4}\/\d{2}\/\d{2}$/" required>
+			<span ng-show="patientDetailsForm.lastVisitDate.$error.pattern">Not correct Date! Follow the format</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-3 control-label">Last Visited</label>
+		<div class="col-lg-7">
+			<input type="text" class="form-control input-lg" id="datepicker " ng-model="patient.lastModified" name="lastVisitDate" ng-pattern="/^\d{4}\/\d{2}\/\d{2}$/" required readonly>
+			<span ng-show="patientDetailsForm.lastVisitDate.$error.pattern">Not correct Date! Follow the format</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-lg-3 control-label">Family Doctor</label>
+		<div class="col-lg-7">
+			<select 
+			class="form-control input-lg" 
+			ng-model="patient.familyDoctor" 
+			name="familyDoctor" 
+			ng-options="p.firstName +' '+p.lastName for p in patient.familyDoctor track by patient.familyDoctor" 
+			required>
+			</select>
+			<span ng-show="patientDetailsForm.familyDoctor.$error.required">Please select a value</span>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-lg-3 control-label">Patient Visits</label>
+		<div class="col-lg-7">
+			
+			<span ng-show="patientDetailsForm.familyDoctor.$error.required">Please select a value</span>
+		</div>
+	</div>
+
+	<!--
 	<br>
-	<br>
-	<input type="submit" class="btn btn-success btn-lg" onclick="checkSubmission()">
-	<br>
+<br>
+<input type="submit" class="btn btn-success btn-lg" onclick="checkSubmission()">
+<br>
 </form>
-<button class="btn btn-danger btn-lg " type="reset " ng-click="resetForm()">Clear</button>
+<button class="btn btn-danger btn-lg " type="reset " ng-click="resetForm()">Clear</button>-->
