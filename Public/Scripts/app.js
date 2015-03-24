@@ -76,7 +76,6 @@ app.controller("MainController", function ($scope,$location, DoctorPatientServic
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
-	// when main controller loads get patient from database and set it to patientModel
 	DoctorPatientService.getPatient().success(function (patient) {
 
 		$scope.patientModel = patient;

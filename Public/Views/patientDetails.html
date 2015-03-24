@@ -8,16 +8,16 @@
 	<div class="form-group">
 		<label class="col-lg-3 control-label">First Name</label>
 		<div class="col-lg-7">
-			<input type="text" class="form-control input-lg" placeholder="First Name" ng-model="patient.firstName" name="firstName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
-			<span ng-show="patientDetailsForm.firstName.$error.pattern">Not valid first name!</span>
+			<input type="text" class="form-control input-lg" placeholder="First Name" ng-model="patient.firstName" name="firstName" ng-pattern="/^[A-z]{3,19}$/" required>
+			<span ng-show="patientDetailsForm.firstName.$error.pattern">Only letter | 3-19 character</span>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="col-lg-3 control-label">Last Name</label>
 		<div class="col-lg-7">
-			<input type="text" class="form-control input-lg" placeholder="Last Name " ng-model="patient.lastName" name="lastName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
-			<span ng-show="patientDetailsForm.lastName.$error.pattern">Not valid last name!</span>
+			<input type="text" class="form-control input-lg" placeholder="Last Name " ng-model="patient.lastName" name="lastName" ng-pattern="/^[A-z]{3,19}$/" required>
+			<span ng-show="patientDetailsForm.lastName.$error.pattern">Only letter | 3-19 character</span>
 		</div>
 	</div>
 
@@ -48,24 +48,27 @@
 	<div class="form-group">
 		<label class="col-lg-3 control-label">Family Doctor</label>
 		<div class="col-lg-7">
-			<select 
-			class="form-control input-lg" 
-			ng-model="patient.familyDoctor" 
-			name="familyDoctor" 
-			ng-options="p.firstName +' '+p.lastName for p in patient.familyDoctor track by patient.familyDoctor" 
-			required>
+			<select class="form-control input-lg" ng-model="patient.familyDoctor" name="familyDoctor" ng-options="p.firstName +' '+p.lastName for p in patient.familyDoctor track by patient.familyDoctor" required>
 			</select>
 			<span ng-show="patientDetailsForm.familyDoctor.$error.required">Please select a value</span>
 		</div>
 	</div>
-	
+
 	<div class="form-group">
-		<label class="col-lg-3 control-label">Patient Visits</label>
+		<label class="col-lg-3 control-label">Patient Complaint</label>
 		<div class="col-lg-7">
-			
-			<span ng-show="patientDetailsForm.familyDoctor.$error.required">Please select a value</span>
+			<input type="text" class="form-control input-lg" ng-model="patient.visits.complaint" name="complaint" ng-pattern="/^[A-z]{4,40}$/" required>
+			<span ng-show="patientDetailsForm.complaint.$error.pattern">Only letter please | 4-40 character</span>
 		</div>
 	</div>
+
+	<label class="col-lg-3 control-label">Total Bill</label>
+
+	<div class="input-group col-lg-7">
+		<span class="input-group-addon">$</span>
+		<input type="number" name="quantity" min="0" step="5" placeholder="Total cost" class="form-control input-lg" ng-model="patient.visits.billingAmount" required="">
+	</div>
+	<span ng-show="patientDetailsForm.quantity.$error.required">Please select a value</span>
 
 	<!--
 	<br>
