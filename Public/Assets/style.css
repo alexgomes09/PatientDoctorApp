@@ -25,3 +25,10 @@ ul.nav li a:hover {
 	color: red;
 	background: black;
 }
+
+.active{
+	display:block;
+}
+.inactive{
+	display: :none;
+}

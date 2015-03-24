@@ -76,8 +76,10 @@ app.controller("MainController", function ($scope,$location, DoctorPatientServic
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
+	
+	
 	DoctorPatientService.getPatient().success(function (patient) {
-
+		
 		$scope.patientModel = patient;
 		
 		$scope.nextTenRecord = function () {
@@ -86,9 +88,7 @@ app.controller("MainController", function ($scope,$location, DoctorPatientServic
 //				var newArray = patient.slice(5)[i];
 				
 				$scope.patientModel = patient.slice(0,i);
-				
 			}
-
 		}
 	})
 

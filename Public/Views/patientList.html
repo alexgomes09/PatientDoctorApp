@@ -3,13 +3,30 @@
 <h2 class="text-center">Patient List </h2>
 <br>
 <table id="patientList" class="table table-striped table-hover">
-	<tr ng-repeat="patient in patientModel | filter:searchedPatient" ng-click="selectedPatient(patient)">
-		<td>{{patient.firstName}}</td>
-		<td>{{patient.lastName}}</td>
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Doctors Name</th>
+	</tr>
+	<tr 
+		ng-repeat="p in patientModel | filter: search" 
+	ng-click="selectedPatient(p)"
+	ng-bing-html-unsafe="patient.id"
+	ng-class="{active: activePage.page == $index, 
+				  inactive: activePage.page != $index}" >
+		  
+		<td>{{p.firstName}}</td>
+		<td>{{p.lastName}}</td>
+		<td>{{p.familyDoctor[0].firstName +" "+p.familyDoctor[0].lastName}}</td>
 	</tr>
 </table>
 
-
 <a href="" ng-click="nextTenRecord()">Next</a>
+
+
+<a ng-show="pages[$index - 1]" ng-click="activePage.page = $index-1" 
+   class="previous" href="#">Previous</a>
+<a ng-show="pages[$index + 1]" ng-click="activePage.page = $index+1" 
+   class="next" href="#">Next</a>   
 
 
