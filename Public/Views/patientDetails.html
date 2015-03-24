@@ -1,0 +1,33 @@
+<a ng-click="patientListView()" >Patient List</a>
+
+
+<h2 class="text-center"> Patient Details </h2>
+<br>
+<form method="POST" class="navbar-form navbar-left" name="patientDetailsForm" novalidate ng-submit="patientDetailsForm.$valid && submit(patient)">
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="First Name" ng-model="patient.firstName" name="firstName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
+		<span ng-show="patientDetailsForm.firstName.$error.pattern">Not valid first name!</span>
+
+		<input type="text" class="form-control " placeholder="Last Name " ng-model="patient.lastName" name="lastName" ng-pattern="/^[A-Z][a-z_-]{3,19}$/" required>
+		<span ng-show="patientDetailsForm.lastName.$error.pattern">Not valid last name!</span>
+
+		<input type="text" class="form-control " placeholder="Phone Number (xxx) xxx-xxxx" ng-model="patient.phoneNo" name="phoneNo" ng-pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" required>
+		<span ng-show="patientDetailsForm.phoneNo.$error.pattern">Not valid Phone number!</span>
+
+		<input type="text" class="form-control " id="datepicker " placeholder="Calender (DD/MM/YYYY)" ng-model="patient.lastVisitDate" name="lastVisitDate" ng-pattern="/^\d{2}\/\d{2}\/\d{4}$/" required>
+		<span ng-show="patientDetailsForm.lastVisitDate.$error.pattern">Not correct Date! Follow the format</span>
+
+		<select class="form-control" ng-model="patient.Status" name="Status" required>
+			<option disabled selected>Choose Status</option>
+			<option disabled>{{patient.Status}}</option>
+			<option value="Active">Active</option>
+			<option value="InActive ">InActive</option>
+		</select>
+		<span ng-show="patientDetailsForm.Status.$error.required">Please select a value</span>
+	</div>
+	<br>
+	<br>
+	<input type="submit" class="btn btn-success btn-lg" onclick="checkSubmission()">
+	<br>
+</form>
+<button class="btn btn-danger btn-lg " type="reset " ng-click="resetForm()">Clear</button>

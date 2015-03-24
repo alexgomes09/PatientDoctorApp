@@ -1,11 +1,28 @@
-body, .panel{
+body,
+.panel {
 	padding-top: 40px;
 }
-select{
-   margin-top: 8px;
+
+select {
+	margin-top: 8px;
 }
-option{
-   margin: 2px 0 2px;
-   background: red;
-   font-size: 1.5em;
+
+option {
+	margin: 2px 0 2px;
+	background: red;
+	font-size: 1.5em;
+}
+
+#patientList tr {
+	cursor: hand;
+}
+
+ul.nav li a {
+	color: blue;
+	border: 1px solid black;
+}
+
+ul.nav li a:hover {
+	color: red;
+	background: black;
 }

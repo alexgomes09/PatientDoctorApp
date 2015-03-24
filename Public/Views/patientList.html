@@ -1,0 +1,15 @@
+
+<br>
+<h2 class="text-center">Patient List </h2>
+<br>
+<table id="patientList" class="table table-striped table-hover">
+	<tr ng-repeat="patient in patientModel | orderBy : ''" ng-click="selectedPatient(patient)">
+		<td>{{patient.firstName}}</td>
+		<td>{{patient.lastName}}</td>
+	</tr>
+</table>
+
+
+<a href="" ng-click="nextTenRecord()">Next</a>
+
+

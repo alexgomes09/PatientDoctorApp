@@ -2,8 +2,9 @@
 	<div class="container collapse navbar-collapse">
 		<ul class="nav navbar-nav">
 
+			
 			<a href="#/doctorLogin" class="btn btn-default navbar-btn navbar-left">Login Doctor</a>
-			<a href="#/doctorRegister" class="btn btn-default navbar-btn navbar-left">Register Doctor </a>
+			
 			<a href="#/patient" class="btn btn-default navbar-btn navbar-left">Register Patient </a>
 
 			<form class="navbar-form navbar-left" role="search">
@@ -23,53 +24,6 @@
 
 <strong ng-show="currentDoctor">Current Doctor - {{:: currentDoctor}}</strong>
 
-
-<div>
-	<h3>Tree View</h3>
-
-	<table class="table">
-		<tr ng-repeat="p in parentBranch">
-			<th>
-				<li>{{p.firstName +' '+p.lastName}}</li>
-			</th>
-
-		</tr>
-
-	</table>
-
-	<table class="table">
-		<tbody>
-			<tr ng-repeat="p in parentBranch">
-				<th>{{p.firstName +' '+p.lastName}}</th>
-				<td>{{p.age}}</td>
-				<td>{{p.visits.complaint}}</td>
-			</tr>
-
-		</tbody>
-	</table>
-
-
-	<!--
-	{{data.name}}
-<button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</button>
-<ul>
-	<li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
-</ul>
-
-
-<script type="text/ng-template" id="tree_item_renderer.html">
-	{{data.name}}
-	<button ng-click="add(data)">Add node</button>
-	<button ng-click="delete(data)" ng-show="data.nodes.length > 0">Delete nodes</button>
-	<ul>
-		<li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
-	</ul>
-</script>
-
-<ul>
-	<li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
-</ul>-->
-
-
-
+<div ng-include src="patientView">
+	
 </div>

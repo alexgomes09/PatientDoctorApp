@@ -1,4 +1,4 @@
-var app = angular.module("DoctorPatientApp", ['ngRoute', 'angularTreeview']);
+var app = angular.module("DoctorPatientApp", ['ngRoute']);
 
 app.config(['$routeProvider',
     function ($routeProvider) {
@@ -74,43 +74,36 @@ app.controller("MainController", function ($scope, DoctorPatientService) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
+	// when main controller loads get patient from database and set it to patientModel
 	DoctorPatientService.getPatient().success(function (patient) {
-		//console.log(patient);
 
-//		angular.forEach(patient, function (value, key) {
-				//			console.log(value)
-				//			console.log(key)
-				//		})
+		$scope.patientModel = patient.range(1,5);
+		
+		
+		
+		$scope.nextTenRecord = function () {
 
-		$scope.parentBranch = patient;
+			for(var i=0; i <= patient.length; i+=5){
+//				var newArray = patient.slice(5)[i];
+				
+				$scope.patientModel = patient.slice(0,i);
+				
+			}
 
-		$scope.parentNode = patient;
-
+		}
 	})
 
-
-	///////////
-
-	$scope.delete = function (data) {
-		data.nodes = [];
+	// this part handles ng-include and sets appropriate view to the home page
+	$scope.patientView = "../Views/patientList.html"
+	$scope.patientListView = function () {
+		$scope.patientView = "../Views/patientList.html"
 	};
 
-	$scope.add = function (data) {
-		var post = data.nodes.length + 1;
-		var newName = data.name + '-' + post;
-		data.nodes.push({
-			name: newName,
-			nodes: []
-		});
-	};
-
-	$scope.tree = [{
-		name: "Node",
-		nodes: []
-	}];
-
-	///////////
-
+	$scope.selectedPatient = function (data) {
+		console.log(data);
+		$scope.patient = data;
+		$scope.patientView = "../Views/patientDetails.html"
+	}
 
 
 });
@@ -118,6 +111,7 @@ app.controller("MainController", function ($scope, DoctorPatientService) {
 app.service("DoctorPatientService", ['$http', function ($http) {
 
 	var currentDoctor = {};
+	var patientDetails = {};
 
 	this.getDoctor = function (data) {
 		return $http.get('/getDoctor', {
@@ -131,7 +125,6 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	this.putDoctor = function (data) {
 		return $http.post('/submitDoctor', data);
 	};
-
 
 	this.getPatient = function (data) {
 		return $http({
@@ -154,4 +147,6 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	this.getCurrentDoctor = function () {
 		return currentDoctor;
 	}
+
+
 }]);
