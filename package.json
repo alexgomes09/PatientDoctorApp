@@ -1,11 +1,12 @@
 {
   "name": "DoctorPatientApp",
   "version": "1.0.0",
-  "description": "",
+  "description": "Paitent Doctor App",
   "main": "server.js",
   "dependencies": {
     "express": "^4.10.2",
-    "mongodb": "^1.4.34"
+    "mongodb": "^1.4.34",
+		"body-parser":"^1.12.2"
   },
   "devDependencies": {},
   "scripts": {
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/alexgomes09/test/issues"
   },
-  "homepage": "https://github.com/alexgomes09/test"
+  "homepage": "https://github.com/alexgomes09/test",
+  "keywords": [
+    "angular"
+  ]
 }
