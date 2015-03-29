@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
 var port = process.env.port || 3000;
 
 app.listen(port);
-console.log('port running at 1337');
+console.log('port running at 3000');
 
 
 

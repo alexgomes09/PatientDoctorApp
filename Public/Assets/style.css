@@ -12,7 +12,8 @@ option {
 	font-size: 1.5em;
 }
 
-#patientList >tbody > tr:first-child ,th {
+#patientList >tbody > tr:first-child,
+th {
 	text-align: center;
 	cursor: default;
 	color: red;
@@ -22,7 +23,18 @@ option {
 #patientList tr {
 	cursor: hand;
 	text-align: center;
-	
+}
+
+#patientList td:last-child{
+	border: 2px solid black;
+	width: 7%;
+}
+#patientList img{
+	width: 37%;
+}
+
+ul > a {
+	margin-left: 15px;
 }
 
 ul.nav li a {
@@ -35,9 +47,10 @@ ul.nav li a:hover {
 	background: black;
 }
 
-.active{
-	display:block;
+.active {
+	display: block;
 }
-.inactive{
-	display: :none;
+
+.inactive {
+	display: : none;
 }

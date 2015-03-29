@@ -8,12 +8,13 @@
 		<th>Last Name</th>
 		<th>Doctors Name</th>
 	</tr>
-	<tr ng-repeat="p in patientModel | filter: search | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="selectedPatient(p)" ng-bing-html-unsafe="patient.id" dir-paginate="p in patientModel | itemsPerPage: 10" ng-class="{active: activePage.page == $index, 
+	<tr ng-repeat="p in patientModel | filter: search | startFrom:currentPage*pageSize | limitTo:pageSize"  ng-bing-html-unsafe="patient.id" dir-paginate="p in patientModel | itemsPerPage: 10" ng-class="{active: activePage.page == $index, 
 				  inactive: activePage.page != $index}">
 
-		<td>{{p.firstName}}</td>
-		<td>{{p.lastName}}</td>
-		<td>{{p.familyDoctor[0].firstName +" "+p.familyDoctor[0].lastName}}</td>
+		<td ng-click="selectedPatient(p)">{{p.firstName}}</td>
+		<td ng-click="selectedPatient(p)">{{p.lastName}}</td>
+		<td ng-click="selectedPatient(p)">{{p.familyDoctor[0].firstName +" "+p.familyDoctor[0].lastName}}</td>
+		<td><img src="../Assets/delete.png"/></td>
 	</tr>
 </table>
 

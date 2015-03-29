@@ -32,15 +32,7 @@ module.exports = function (app, bodyParser) {
 			res.setHeader('Content-Type', 'application/json');
 			res.end(JSON.stringify(data));
 		})
-		
-//		models.Patient.find({}, function (err, data) {
-//			if (err) {
-//				console.log(err);
-//			} else {
-//				res.setHeader('Content-Type', 'application/json');
-//				res.end(JSON.stringify(data));
-//			}
-//		})
+
 	});
 
 	router.route('/submitDoctor').post(function (req, res) {

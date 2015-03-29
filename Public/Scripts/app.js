@@ -76,10 +76,7 @@ app.controller("MainController", function ($scope, $location, DoctorPatientServi
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
-
-
 	DoctorPatientService.getPatient().success(function (patient) {
-
 		$scope.currentPage = 0;
 		$scope.pageSize = 10;
 		$scope.data = patient;
@@ -89,8 +86,6 @@ app.controller("MainController", function ($scope, $location, DoctorPatientServi
 		for (var i = 0; i < 45; i++) {
 			$scope.patientModel = $scope.data;
 		}
-
-
 	})
 
 	$scope.selectedPatient = function (data) {
@@ -101,6 +96,7 @@ app.controller("MainController", function ($scope, $location, DoctorPatientServi
 
 app.filter('startFrom', function () {
 	return function (input, start) {
+		if (!input || !input.length) { return; }
 		start = +start; //parse to int
 		return input.slice(start);
 	}
