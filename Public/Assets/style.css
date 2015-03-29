@@ -26,9 +26,12 @@ th {
 }
 
 #patientList td:last-child{
-	border: 2px solid black;
 	width: 7%;
 }
+#patientList td:last-child:hover{
+	background: darkgray;
+}
+
 #patientList img{
 	width: 37%;
 }

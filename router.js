@@ -52,6 +52,22 @@ module.exports = function (app, bodyParser) {
 		});
 	});
 
+	router.route('/deletePatient').delete(function(req,res){
+		var firstName = req.query.firstName;
+		var lastName = req.query.lastName;
+		models.Patient.remove({
+			firstName:firstName,
+			lastName:lastName
+		},function(err,data){
+			if(err){
+				console.log(err);
+			}else{
+				console.log("Patient Deleted")
+				res.status(200).send(firstName+' '+lastName+" was deleted");
+			}
+		})
+		
+	})
 
 	router.route('/submitPatient').post(function (req, res) {
 

@@ -86,11 +86,18 @@ app.controller("MainController", function ($scope, $location, DoctorPatientServi
 		for (var i = 0; i < 45; i++) {
 			$scope.patientModel = $scope.data;
 		}
-	})
+	});
 
 	$scope.selectedPatient = function (data) {
 		DoctorPatientService.setPatientDetails(data);
 		$location.path('/patientDetails')
+	};
+	
+	$scope.deletePatient = function(data){
+		console.log(data);
+	$scope.$watch();	DoctorPatientService.deletePatient(data).success(function(data){
+			console.log(data);
+		});
 	}
 });
 
@@ -132,6 +139,17 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 			cache: true
 		})
 	};
+	
+	this.deletePatient = function(data){
+		return $http({
+			method:"DELETE",
+			url:"/deletePatient",
+			params:{
+				firstName:data.firstName,
+				lastName:data.lastName
+			}	
+		})
+	}
 
 	this.putPatient = function (data) {
 		return $http.post('/submitPatient', data);
