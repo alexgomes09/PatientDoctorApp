@@ -57,3 +57,6 @@ ul.nav li a:hover {
 .inactive {
 	display: : none;
 }
+.deletedPatient{
+	display: none;
+}

@@ -70,8 +70,7 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
 	}
 });
 
-app.controller("MainController", function ($scope, $location, DoctorPatientService) {
-
+app.controller("MainController", function ($scope,$route, $location, DoctorPatientService) {
 	if (Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
@@ -90,20 +89,21 @@ app.controller("MainController", function ($scope, $location, DoctorPatientServi
 
 	$scope.selectedPatient = function (data) {
 		DoctorPatientService.setPatientDetails(data);
-		$location.path('/patientDetails')
+		$location.path('/patientDetails');
 	};
-	
-	$scope.deletePatient = function(data){
+
+	$scope.deletePatient = function (data) {
 		console.log(data);
-	$scope.$watch();	DoctorPatientService.deletePatient(data).success(function(data){
-			console.log(data);
+		DoctorPatientService.deletePatient(data).success(function (data) {
 		});
 	}
 });
 
 app.filter('startFrom', function () {
 	return function (input, start) {
-		if (!input || !input.length) { return; }
+		if (!input || !input.length) {
+			return;
+		}
 		start = +start; //parse to int
 		return input.slice(start);
 	}
@@ -139,15 +139,15 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 			cache: true
 		})
 	};
-	
-	this.deletePatient = function(data){
+
+	this.deletePatient = function (data) {
 		return $http({
-			method:"DELETE",
-			url:"/deletePatient",
-			params:{
-				firstName:data.firstName,
-				lastName:data.lastName
-			}	
+			method: "DELETE",
+			url: "/deletePatient",
+			params: {
+				firstName: data.firstName,
+				lastName: data.lastName
+			}
 		})
 	}
 

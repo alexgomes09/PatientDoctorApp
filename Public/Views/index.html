@@ -6,7 +6,6 @@
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="../Assets/style.css">
 
-
 </head>
 
 <body class="panel">
@@ -18,20 +17,11 @@
 		</div>
 	</div>
 
-	<script>
-		function checkSubmission() {
-			var a = $("form[name='patientDetailsForm']").find("span:visible").length;
-			if (a === 0) {
-				alert("Form Submitted! Check Patient list now ")
-			}
-		}
-	</script>
-
-
+	<script src="../Scripts/validation.js"></script>
 	<script src="../Scripts/angular.js"></script>
 	<script src="../Scripts/angular-route.min.js"></script>
 	<script src="../Scripts/app.js"></script>
-	<script src="../Scripts/validation.js"></script>
+
 </body>
 
 </html>

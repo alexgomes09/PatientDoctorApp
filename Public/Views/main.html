@@ -3,7 +3,7 @@
 		<ul class="nav navbar-nav">
 
 			<a href="#/doctorLogin" class="btn btn-default navbar-btn navbar-left">Login Doctor</a>
-			
+
 			<a href="#/patient" class="btn btn-default navbar-btn navbar-left">Register Patient </a>
 
 			<form class="navbar-form navbar-left" role="search">
@@ -11,16 +11,11 @@
 					<input type="text" class="form-control" placeholder="Search patient or by doctor by last name..." ng-model="search.lastName" size=50/>
 				</div>
 			</form>
-			<select 
-			class="btn btn navbar-left"
-			ng-change="selectedPatient(navPatientSelected)"
-			ng-options="p.firstName+' '+p.lastName for p in patientModel"
-			ng-model="navPatientSelected"
-			>
+			<select class="btn btn navbar-left" ng-change="selectedPatient(navPatientSelected)" ng-options="p.firstName+' '+p.lastName for p in patientModel" ng-model="navPatientSelected">
 				<option value="" disabled selected>Choose Patient...</option>
 
 			</select>
-		
+
 		</ul>
 	</div>
 </nav>

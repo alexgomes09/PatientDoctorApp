@@ -1,4 +1,3 @@
-<dir-pagination-controls></dir-pagination-controls>
 <br>
 <h2 class="text-center">Patient List </h2>
 <br>
@@ -9,8 +8,13 @@
 		<th>Doctors Name</th>
 		<th></th>
 	</tr>
-	<tr ng-repeat="p in patientModel | filter: search | startFrom:currentPage*pageSize | limitTo:pageSize"  ng-bing-html-unsafe="patient.id" dir-paginate="p in patientModel | itemsPerPage: 10" ng-class="{active: activePage.page == $index, 
-				  inactive: activePage.page != $index}">
+	<tr 
+	  	ng-repeat="p in patientModel | filter: search.lastName | startFrom:currentPage*pageSize | limitTo:pageSize"  
+		ng-bing-html-unsafe="patient.id" 
+	  	dir-paginate="p in patientModel | itemsPerPage: 10" 
+		ng-class="{active: activePage.page == $index, 
+				  inactive: activePage.page != $index}"
+	  	>
 
 		<td ng-click="selectedPatient(p)">{{p.firstName}}</td>
 		<td ng-click="selectedPatient(p)">{{p.lastName}}</td>
