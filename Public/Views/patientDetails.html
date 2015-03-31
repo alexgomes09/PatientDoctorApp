@@ -57,19 +57,19 @@
 	<div class="form-group">
 		<label class="col-lg-3 control-label">Family Doctor</label>
 		<div class="col-lg-7">
-			<select class="form-control input-lg" ng-model="patient.familyDoctor" name="familyDoctor" ng-options="p.firstName +' '+p.lastName for p in familyDoctors track by patient.familyDoctor" required>
+			<select ng-hide="checkbox" class="form-control input-lg" ng-model="patient.familyDoctor" name="familyDoctor" ng-options="p.firstName+' '+p.lastName for p in patient.familyDoctor track by patient.familyDoctor" required>
 				<option value="">Please Select doctor...</option>
 			</select>
-			<span ng-show="patientDetailsForm.familyDoctor.$error.required">Please select a value</span>
 		</div>
 	</div>
+
 
 	<!-- Text input Created At-->
 	<div class="form-group">
 		<label class="col-lg-3 control-label">Created At</label>
 		<div class="col-lg-7">
-			<input type="text" class="form-control input-lg" id="datepicker " placeholder="Calender (DD/MM/YYYY)" ng-model="patient.createdAt" name="createdAt" ng-pattern="/^\d{4}\-\d{2}\-\d{2}$/" required>
-			<span ng-show="patientDetailsForm.createdAt.$error.pattern">Not correct Date! Follow the format</span>
+			<input type="text" class="form-control input-lg" id="datepicker " ng-model="patient.createdAt" name="createdAt" required placeholder="yyyy-MM-dd" min="2014-01-01" max="2200-12-31" >
+			<span ng-show="patientDetailsForm.createdAt.$error.required">Date is required</span>
 		</div>
 	</div>
 
@@ -77,8 +77,8 @@
 	<div class="form-group">
 		<label class="col-lg-3 control-label">Modified At</label>
 		<div class="col-lg-7">
-			<input type="text" class="form-control input-lg" id="datepicker " placeholder="Calender (DD/MM/YYYY)" ng-model="patient.lastModified" name="lastVisitDate" ng-pattern="/^\d{4}\-\d{2}\-\d{2}$/" required>
-			<span ng-show="patientDetailsForm.lastVisitDate.$error.pattern">Not correct Date! Follow the format</span>
+			<input type="text" class="form-control input-lg" id="datepicker " ng-model="patient.lastModified" name="lastVisitDate" placeholder="yyyy-MM-dd" min="2014-01-01" max="2200-12-31" required>
+			<span ng-show="patientDetailsForm.lastVisitDate.$error.required">Date is required</span>
 		</div>
 	</div>
 

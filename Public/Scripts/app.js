@@ -32,8 +32,10 @@ app.config(['$routeProvider',
 app.controller("DoctorRegisterController", function ($scope, $location, DoctorPatientService) {
 
 	$scope.submitDoctor = function (doctor) {
-		DoctorPatientService.putDoctor(doctor);
-		$location.path('/home');
+		DoctorPatientService.putDoctor(doctor).success(function(data){
+			alert("Doctor was registered");
+			$location.path('/doctorLogin');
+		});
 	}
 });
 
@@ -45,37 +47,35 @@ app.controller("DoctorLogInController", function ($scope, $location, DoctorPatie
 				DoctorPatientService.setCurrentDoctor(data);
 				$location.path('/home');
 			} else {
-				$location.path('/doctorRegister');
+				if (confirm("We didnt find the doctor. Would you like to register new doctor") == true) {
+					$location.path('/doctorRegister');
+				} else {
+					$location.path('/home');
+				}
 			}
 		});
 	}
 });
 
-app.controller("PatientController", function ($scope, $rootScope, $location, DoctorPatientService) {
+app.controller("PatientController", function ($scope, $window, $location, DoctorPatientService) {
 
 	DoctorPatientService.getAllDoctor().success(function (data) {
 		$scope.familyDoctors = data;
 	});
 
 	$scope.submitPatient = function (patient) {
-
 		DoctorPatientService.putPatient(patient).success(function () {
 			alert("Patient was created")
 			$location.path("/home");
-			$rootScope.$emit("name");
+			$window.location.reload()
 		});
 	}
 });
 
-app.controller("PatientListController", function ($scope, $window, $route, $location, DoctorPatientService) {
+app.controller("PatientListController", function ($scope, $route, $window, $location, DoctorPatientService) {
 	if (Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
-
-	$scope.refreshView = function () {
-		console.log("view Refreshed")
-	}
-
 
 	DoctorPatientService.getPatient().success(function (patient) {
 		$scope.currentPage = 0;
@@ -84,7 +84,7 @@ app.controller("PatientListController", function ($scope, $window, $route, $loca
 		$scope.numberOfPages = function () {
 			return Math.ceil($scope.data.length / $scope.pageSize);
 		}
-		for (var i = 0; i < 45; i++) {
+		for (var i = 0; i < $scope.data.length; i++) {
 			$scope.patientModel = $scope.data;
 		}
 	});
@@ -96,24 +96,29 @@ app.controller("PatientListController", function ($scope, $window, $route, $loca
 
 	$scope.deletePatient = function (data) {
 		console.log(data);
-		DoctorPatientService.deletePatient(data).success(function (data) {});
+
+		DoctorPatientService.deletePatient(data).success(function (data) {
+			alert(data)
+			$window.location.reload();
+		});
 	}
 });
 
 
-app.controller("PatientDetailsController", function ($scope, DoctorPatientService) {
+app.controller("PatientDetailsController", function ($scope, $location, $window, DoctorPatientService) {
 	$scope.patient = DoctorPatientService.getPatientDetails();
 
-	DoctorPatientService.getAllDoctor().success(function (data) {
-		$scope.familyDoctors = data;
-		console.log($scope.familyDoctors);
-	});
+//	DoctorPatientService.getAllDoctor().success(function (data) {
+//		$scope.familyDoctors = data;
+//	});
 
 	$scope.editPatient = function (patient) {
 		console.log(patient);
 		DoctorPatientService.updatePatient(patient).success(function (data) {
 			alert(data);
 			console.log(data)
+			$location.path('/home');
+			$window.location.reload();
 		});
 	}
 })

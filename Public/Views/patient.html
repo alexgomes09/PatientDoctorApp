@@ -54,7 +54,7 @@
 
 		<label class="col-lg-3 control-label">Family Doctor</label>
 		<div class="col-lg-7">
-			<select class="form-control input-lg" required ng-model="patient.familyDoctor" ng-options="p as p.firstName+' '+p.lastName for p in familyDoctors">
+			<select class="form-control input-lg" ng-model="patient.familyDoctor" ng-options="p as p.firstName+' '+p.lastName for p in familyDoctors" required>
 				<option value="">Please Select doctor...</option>
 			</select>
 		</div>
@@ -65,7 +65,7 @@
 
 		<label class="col-lg-3 control-label">Created At</label>
 		<div class="col-lg-7">
-			<input type="date" placeholder="Patient will be created at..." class="form-control input-lg" ng-model="patient.createdAt" required>
+			<input type="date" placeholder="yyyy-MM-dd" min="2014-01-01" max="2200-12-31" class="form-control input-lg" ng-model="patient.createdAt" required>
 		</div>
 	</div>
 
@@ -74,7 +74,7 @@
 
 		<label class="col-lg-3 control-label">Modified At</label>
 		<div class="col-lg-7">
-			<input type="date" placeholder="new modified date will be.." class="form-control input-lg" ng-model="patient.lastModified" required>
+			<input type="date" placeholder="yyyy-MM-dd" min="2014-01-01" max="2200-12-31" class="form-control input-lg" ng-model="patient.lastModified" required>
 		</div>
 
 	</div>

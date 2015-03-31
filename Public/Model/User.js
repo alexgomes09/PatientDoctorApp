@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var moment = require('moment');
+
 
 var doctorSchema = new mongoose.Schema({
 	"firstName": String,
@@ -15,7 +17,7 @@ var patientSchema = new mongoose.Schema({
 	},
 	age: {type:Number},
 	familyDoctor: [doctorSchema],
-	createdAt: Date,
+	createdAt: {type:Date},
 	lastModified: Date
 });
 
