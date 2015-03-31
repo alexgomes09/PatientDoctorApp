@@ -25,6 +25,14 @@ module.exports = function (app, bodyParser) {
 			}
 		})
 	})
+	
+	router.route('/getAllDoctor').get(function (req, res) {
+		var q = models.Doctor.find({});
+		q.exec(function (err, data) {
+			res.setHeader('Content-Type', 'application/json');
+			res.end(JSON.stringify(data));
+		})
+	})
 
 	router.route('/getPatient').get(function (req, res) {
 		var q = models.Patient.find({});

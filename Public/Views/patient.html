@@ -1,69 +1,89 @@
 <a href="#/home" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
 <form class="container form-horizontal" name="patientRegisterForm" ng-submit="submitPatient(patient)">
-<!-- Form Name -->
-<h1>Register New Patient</h1>
-<hr>
-<br>
-<br>
+	<!-- Form Name -->
+	<h1>Register New Patient</h1>
+	<hr>
+	<br>
+	<br>
 
-<!-- Text input FirstName-->
-<div class="form-group">
-	<label class="col-lg-3 control-label">First Name</label>
-	<div class="col-lg-7">
-		<input type="text" placeholder="Enter patients's first name" class="form-control input-lg" name="firstName" ng-model="patient.firstName" ng-pattern="" required ng-init="firstname='Alex'" value="Alex">
+	<!-- Text input FirstName-->
+	<div class="form-group">
+		<label class="col-lg-3 control-label">First Name</label>
+		<div class="col-lg-7">
+			<input type="text" placeholder="Enter patients's first name" class="form-control input-lg" name="firstName" ng-model="patient.firstName" ng-pattern="" required>
+		</div>
 	</div>
 
 	<!-- Text input LastName-->
-	<label class="col-lg-3 control-label" for="textinput">Last Name</label>
-	<div class="col-lg-7">
-		<input type="text" name="lastName" placeholder="Enter patient's last name" class="form-control input-lg" ng-model="patient.lastName" required="">
+	<div class="form-group">
+		<label class="col-lg-3 control-label" for="textinput">Last Name</label>
+		<div class="col-lg-7">
+			<input type="text" name="lastName" placeholder="Enter patient's last name" class="form-control input-lg" ng-model="patient.lastName" required="">
+		</div>
 	</div>
 
 	<!-- Text input complaint-->
-	<label class="col-lg-3 control-label" for="textinput">Complaint</label>
-	<div class="col-lg-7">
-		<input type="text" placeholder="Enter patient's symptoms" class="form-control input-lg" ng-model="patient.complaint" required="">
+	<div class="form-group">
+		<label class="col-lg-3 control-label" for="textinput">Complaint</label>
+		<div class="col-lg-7">
+			<input type="text" placeholder="Enter patient's symptoms" class="form-control input-lg" ng-model="patient.complaint" required="">
+		</div>
 	</div>
 
 	<!-- Text input billing-->
-	<label class="col-lg-3 control-label">Billing Amount</label>
-	<div class="input-group col-lg-7">
-		<span class="input-group-addon">$</span>
-		<input type="number" name="quantity" placeholder="Total cost" class="form-control input-lg" ng-model="patient.billingAmount" required="">
+	<div class="form-group">
+
+		<label class="col-lg-3 control-label">Billing Amount</label>
+		<div class="input-group col-lg-7">
+			<span class="input-group-addon">$</span>
+			<input type="number" name="quantity" placeholder="Total cost" class="form-control input-lg" ng-model="patient.billingAmount" required="">
+		</div>
 	</div>
 
 	<!-- Text input Patients Age-->
-	<label class="col-lg-3 control-label">Age</label>
-	<div class="col-lg-7">
-		<input type="number" name="quantity" min="1" max="99" placeholder="Enter Age" class="form-control input-lg" ng-model="patient.age" required="">
+	<div class="form-group">
+
+		<label class="col-lg-3 control-label">Age</label>
+		<div class="col-lg-7">
+			<input type="number" name="quantity" min="1" max="99" placeholder="Enter Age" class="form-control input-lg" ng-model="patient.age" required="">
+		</div>
 	</div>
 
 	<!-- Text input Patients Doctor-->
-	<label class="col-lg-3 control-label">Family Doctor</label>
-	<div class="col-lg-7">
-		<select class="form-control input-lg" required ng-model="patient.familyDoctor" ng-options="p as p.firstName+' '+p.lastName for p in patients">
-			<option value="">Please Select doctor...</option>
-		</select>
+	<div class="form-group">
+
+		<label class="col-lg-3 control-label">Family Doctor</label>
+		<div class="col-lg-7">
+			<select class="form-control input-lg" required ng-model="patient.familyDoctor" ng-options="p as p.firstName+' '+p.lastName for p in familyDoctors">
+				<option value="">Please Select doctor...</option>
+			</select>
+		</div>
 	</div>
 
 	<!-- Text input Created At-->
-	<label class="col-lg-3 control-label">Created At</label>
-	<div class="col-lg-7">
-		<input type="date" placeholder="Patient will be created at..." class="form-control input-lg" ng-model="patient.createdAt" required>
+	<div class="form-group">
+
+		<label class="col-lg-3 control-label">Created At</label>
+		<div class="col-lg-7">
+			<input type="date" placeholder="Patient will be created at..." class="form-control input-lg" ng-model="patient.createdAt" required>
+		</div>
 	</div>
 
 	<!-- Text input Modified At-->
-	<label class="col-lg-3 control-label">Modified At</label>
-	<div class="col-lg-7">
-		<input type="date" placeholder="new modified date will be.." class="form-control input-lg" ng-model="patient.lastModified" required>
+	<div class="form-group">
+
+		<label class="col-lg-3 control-label">Modified At</label>
+		<div class="col-lg-7">
+			<input type="date" placeholder="new modified date will be.." class="form-control input-lg" ng-model="patient.lastModified" required>
+		</div>
+
+	</div>
 	</div>
 
-</div>
-
-<!-- Button -->
-<div class="form-group">
-	<div class="col-lg-7 col-lg-offset-3">
-		<input type="submit" class="btn btn-info btn-lg btn-block" />
+	<!-- Button -->
+	<div class="form-group">
+		<div class="col-lg-7 col-lg-offset-3">
+			<input type="submit" class="btn btn-info btn-lg btn-block" />
+		</div>
 	</div>
-</div>
 </form>

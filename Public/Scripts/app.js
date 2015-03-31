@@ -53,30 +53,27 @@ app.controller("DoctorLogInController", function ($scope, $location, DoctorPatie
 
 app.controller("PatientController", function ($scope, $rootScope, $location, DoctorPatientService) {
 
-	$scope.patients = [
-		{
-			firstName: 'Alex',
-			lastName: 'Gomes'
-		},
-		{
-			firstName: 'Chadni',
-			lastName: 'Gomes'
-		},
-   ];
+	DoctorPatientService.getAllDoctor().success(function (data) {
+		$scope.familyDoctors = data;
+	});
 
 	$scope.submitPatient = function (patient) {
-		//		var name = patient.familyDoctor.firstName + ' ' + patient.familyDoctor.lastName;
+
 		DoctorPatientService.putPatient(patient).success(function () {
-			//			alert("Patient was created")
+			alert("Patient was created")
 			$location.path("/home");
 			$rootScope.$emit("name");
 		});
 	}
 });
 
-app.controller("PatientListController", function ($scope, $rootScope, $route, $location, DoctorPatientService) {
+app.controller("PatientListController", function ($scope, $window, $route, $location, DoctorPatientService) {
 	if (Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
+	}
+
+	$scope.refreshView = function () {
+		console.log("view Refreshed")
 	}
 
 
@@ -106,10 +103,15 @@ app.controller("PatientListController", function ($scope, $rootScope, $route, $l
 
 app.controller("PatientDetailsController", function ($scope, DoctorPatientService) {
 	$scope.patient = DoctorPatientService.getPatientDetails();
-	
-	$scope.editPatient = function(patient){
+
+	DoctorPatientService.getAllDoctor().success(function (data) {
+		$scope.familyDoctors = data;
+		console.log($scope.familyDoctors);
+	});
+
+	$scope.editPatient = function (patient) {
 		console.log(patient);
-		DoctorPatientService.updatePatient(patient).success(function(data){
+		DoctorPatientService.updatePatient(patient).success(function (data) {
 			alert(data);
 			console.log(data)
 		});
@@ -120,6 +122,10 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 
 	var currentDoctor = {};
 	var patientDetails = {};
+
+	this.getAllDoctor = function (data) {
+		return $http.get('/getAllDoctor', data);
+	}
 
 	this.getDoctor = function (data) {
 		return $http.get('/getDoctor', {
@@ -157,9 +163,9 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	this.putPatient = function (data) {
 		return $http.post('/submitPatient', data);
 	};
-	
-	this.updatePatient = function(data){
-		return $http.post('/updatePatient',JSON.stringify(data));
+
+	this.updatePatient = function (data) {
+		return $http.post('/updatePatient', JSON.stringify(data));
 	}
 
 	this.setCurrentDoctor = function (value) {
@@ -178,7 +184,6 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	this.getPatientDetails = function () {
 		return patientDetails;
 	}
-
 
 }]);
 

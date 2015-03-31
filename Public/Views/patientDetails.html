@@ -57,7 +57,7 @@
 	<div class="form-group">
 		<label class="col-lg-3 control-label">Family Doctor</label>
 		<div class="col-lg-7">
-			<select class="form-control input-lg" ng-model="patient.familyDoctor" name="familyDoctor" ng-options="p.firstName +' '+p.lastName for p in patient.familyDoctor track by patient.familyDoctor" required>
+			<select class="form-control input-lg" ng-model="patient.familyDoctor" name="familyDoctor" ng-options="p.firstName +' '+p.lastName for p in familyDoctors track by patient.familyDoctor" required>
 				<option value="">Please Select doctor...</option>
 			</select>
 			<span ng-show="patientDetailsForm.familyDoctor.$error.required">Please select a value</span>

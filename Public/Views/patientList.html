@@ -11,7 +11,7 @@
 					<input type="text" class="form-control" placeholder="Search patient or by doctor by last name..." ng-model="search.lastName" size=50/>
 				</div>
 			</form>
-			<select class="btn btn navbar-left" ng-change="selectedPatient(navPatientSelected)" ng-options="p.firstName+' '+p.lastName for p in patientModel" ng-model="navPatientSelected">
+			<select class="btn btn navbar-left input" ng-change="selectedPatient(navPatientSelected)" ng-options="p.firstName+' '+p.lastName for p in patientModel" ng-model="navPatientSelected">
 				<option value="" disabled selected>Choose Patient...</option>
 			</select>
 
@@ -23,6 +23,7 @@
 
 <!--<div ng-include src="'../Views/patientList.html'"></div>-->
 
+<button ng-click="refreshView()">REfresh View</button>
 
 <!--Patient List from here-->
 <br>
