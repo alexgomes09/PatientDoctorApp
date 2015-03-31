@@ -11,9 +11,9 @@ var patientSchema = new mongoose.Schema({
 	"lastName": String,
 	visits: {
 		complaint: String,
-		billingAmount: Number
+		billingAmount: {type:Number}
 	},
-	age: Number,
+	age: {type:Number},
 	familyDoctor: [doctorSchema],
 	createdAt: Date,
 	lastModified: Date

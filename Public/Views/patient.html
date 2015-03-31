@@ -10,13 +10,13 @@
 <div class="form-group">
 	<label class="col-lg-3 control-label">First Name</label>
 	<div class="col-lg-7">
-		<input type="text" placeholder="Enter patients's first name" class="form-control input-lg" name="firstName" ng-model="patient.firstName" ng-pattern="" required="">
+		<input type="text" placeholder="Enter patients's first name" class="form-control input-lg" name="firstName" ng-model="patient.firstName" ng-pattern="" required ng-init="firstname='Alex'" value="Alex">
 	</div>
 
 	<!-- Text input LastName-->
 	<label class="col-lg-3 control-label" for="textinput">Last Name</label>
 	<div class="col-lg-7">
-		<input type="text" placeholder="Enter patient's last name" class="form-control input-lg" ng-model="patient.lastName" required="">
+		<input type="text" name="lastName" placeholder="Enter patient's last name" class="form-control input-lg" ng-model="patient.lastName" required="">
 	</div>
 
 	<!-- Text input complaint-->
@@ -29,7 +29,7 @@
 	<label class="col-lg-3 control-label">Billing Amount</label>
 	<div class="input-group col-lg-7">
 		<span class="input-group-addon">$</span>
-		<input type="number" name="quantity" step="5" placeholder="Total cost" class="form-control input-lg" ng-model="patient.billingAmount" required="">
+		<input type="number" name="quantity" placeholder="Total cost" class="form-control input-lg" ng-model="patient.billingAmount" required="">
 	</div>
 
 	<!-- Text input Patients Age-->
@@ -51,7 +51,6 @@
 	<div class="col-lg-7">
 		<input type="date" placeholder="Patient will be created at..." class="form-control input-lg" ng-model="patient.createdAt" required>
 	</div>
-
 
 	<!-- Text input Modified At-->
 	<label class="col-lg-3 control-label">Modified At</label>

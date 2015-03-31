@@ -4,8 +4,8 @@ app.config(['$routeProvider',
     function ($routeProvider) {
 		$routeProvider.
 		when('/home', {
-			templateUrl: 'Views/main.html',
-			controller: 'MainController'
+			templateUrl: 'Views/patientList.html',
+			controller: 'PatientListController'
 		}).
 		when('/doctorRegister', {
 			templateUrl: 'Views/doctorRegister.html',
@@ -51,7 +51,7 @@ app.controller("DoctorLogInController", function ($scope, $location, DoctorPatie
 	}
 });
 
-app.controller("PatientController", function ($scope, $location, DoctorPatientService) {
+app.controller("PatientController", function ($scope, $rootScope, $location, DoctorPatientService) {
 
 	$scope.patients = [
 		{
@@ -65,15 +65,20 @@ app.controller("PatientController", function ($scope, $location, DoctorPatientSe
    ];
 
 	$scope.submitPatient = function (patient) {
-		var name = patient.familyDoctor.firstName + ' ' + patient.familyDoctor.lastName;
-		DoctorPatientService.putPatient(patient);
+		//		var name = patient.familyDoctor.firstName + ' ' + patient.familyDoctor.lastName;
+		DoctorPatientService.putPatient(patient).success(function () {
+			//			alert("Patient was created")
+			$location.path("/home");
+			$rootScope.$emit("name");
+		});
 	}
 });
 
-app.controller("MainController", function ($scope,$route, $location, DoctorPatientService) {
+app.controller("PatientListController", function ($scope, $rootScope, $route, $location, DoctorPatientService) {
 	if (Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
+
 
 	DoctorPatientService.getPatient().success(function (patient) {
 		$scope.currentPage = 0;
@@ -94,23 +99,21 @@ app.controller("MainController", function ($scope,$route, $location, DoctorPatie
 
 	$scope.deletePatient = function (data) {
 		console.log(data);
-		DoctorPatientService.deletePatient(data).success(function (data) {
-		});
+		DoctorPatientService.deletePatient(data).success(function (data) {});
 	}
 });
 
-app.filter('startFrom', function () {
-	return function (input, start) {
-		if (!input || !input.length) {
-			return;
-		}
-		start = +start; //parse to int
-		return input.slice(start);
-	}
-});
 
 app.controller("PatientDetailsController", function ($scope, DoctorPatientService) {
 	$scope.patient = DoctorPatientService.getPatientDetails();
+	
+	$scope.editPatient = function(patient){
+		console.log(patient);
+		DoctorPatientService.updatePatient(patient).success(function(data){
+			alert(data);
+			console.log(data)
+		});
+	}
 })
 
 app.service("DoctorPatientService", ['$http', function ($http) {
@@ -154,6 +157,10 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	this.putPatient = function (data) {
 		return $http.post('/submitPatient', data);
 	};
+	
+	this.updatePatient = function(data){
+		return $http.post('/updatePatient',JSON.stringify(data));
+	}
 
 	this.setCurrentDoctor = function (value) {
 		currentDoctor.firstName = value.firstName;
@@ -174,3 +181,13 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 
 
 }]);
+
+app.filter('startFrom', function () {
+	return function (input, start) {
+		if (!input || !input.length) {
+			return;
+		}
+		start = +start; //parse to int
+		return input.slice(start);
+	}
+});
