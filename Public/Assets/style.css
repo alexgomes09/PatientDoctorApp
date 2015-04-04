@@ -57,6 +57,12 @@ ul.nav li a:hover {
 .inactive {
 	display: : none;
 }
-.deletedPatient{
-	display: none;
+#filter{
+	width: 260px;
+}
+#choosePatient{
+	width: 200px;
+	margin-top: -1px;
+	margin-left: 5px;
+	background-color: white;
 }

@@ -42,6 +42,19 @@ module.exports = function (app, bodyParser) {
 		})
 
 	});
+	
+	router.route('/searchPatient').get(function(req,res){
+		
+		var lastName = req.query.data;
+		
+		models.Patient.find({$or:[{"lastName":lastName},{"familyDoctor.lastName":lastName}]}, function (err, data) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.end(JSON.stringify(data));
+			}
+		})
+	})
 
 	router.route('/submitDoctor').post(function (req, res) {
 

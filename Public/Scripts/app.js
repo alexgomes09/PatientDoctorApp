@@ -102,6 +102,12 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 			$window.location.reload();
 		});
 	}
+	
+	$scope.searchPatient = function(data){
+		DoctorPatientService.searchPatient(data).success(function(data){
+			console.log(data);
+		});
+	}
 });
 
 
@@ -145,6 +151,16 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 		return $http.post('/submitDoctor', data);
 	};
 
+	this.searchPatient = function(data){
+		return $http({
+			method:"GET",
+			url:"/searchPatient",
+			params:{
+				data:data
+			}
+		})
+	}
+	
 	this.getPatient = function (data) {
 		return $http({
 			method: "GET",
