@@ -1,29 +1,66 @@
 var models = require('./Public/Model/user');
 var express = require('express');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var router = express.Router();
 
 module.exports = function (app, bodyParser) {
 	var doctor, patient;
 
 	router.use(bodyParser.json());
+	app.use(passport.initialize());
+	app.use(passport.session());
 
 	//router to login doctor and chec if it exist or not
+	//	router.route('/getDoctor').get(function (req, res) {
+	//
+	//		var firstName = req.query.firstName;
+	//		var lastName = req.query.lastName;
+	//		models.Doctor.findOne({
+	//			firstName: firstName,
+	//			lastName: lastName
+	//		}, function (err, data) {
+	//			if (err) {
+	//				console.log(err);
+	//			} else {
+	//				res.status(200).send(data);
+	//			}
+	//		})
+	//	})
+
+	/////// trying passport jS
+
 	router.route('/getDoctor').get(function (req, res) {
 
-		var firstName = req.query.firstName;
-		var lastName = req.query.lastName;
-		models.Doctor.findOne({
-			firstName: firstName,
-			lastName: lastName
-		}, function (err, data) {
-			if (err) {
-				console.log(err);
-			} else {
-				res.status(200).send(data);
-			}
-		})
-	})
+		passport.use(new LocalStrategy(function (username, password, done) {
+			models.Doctor.findOne({
+				firstName: req.query.firstName
+			}, function (err, user) {
+				if (err) {
+					return done(err);
+				}
+				if (!user) {
+					return done(null, false, {
+						message: 'Incorrect username.'
+					});
+				}
+			});
+		}));
+		
 	
+	})
+
+//	router.get('/getDoctor',
+//		passport.authenticate('local', {
+//			successRedirect: '/',
+//			failureRedirect: '/getDoctor'
+//		})
+//	);
+
+
+
+	/// trying passport jS	
+
 	router.route('/getAllDoctor').get(function (req, res) {
 		var q = models.Doctor.find({});
 		q.exec(function (err, data) {
@@ -40,12 +77,18 @@ module.exports = function (app, bodyParser) {
 		})
 
 	});
-	
-	router.route('/searchPatient').get(function(req,res){
-		
+
+	router.route('/searchPatient').get(function (req, res) {
+
 		var lastName = req.query.data;
-		
-		models.Patient.find({$or:[{"lastName":lastName},{"familyDoctor.lastName":lastName}]}, function (err, data) {
+
+		models.Patient.find({
+			$or: [{
+				"lastName": lastName
+			}, {
+				"familyDoctor.lastName": lastName
+			}]
+		}, function (err, data) {
 			if (err) {
 				console.log(err);
 			} else {
@@ -121,7 +164,9 @@ module.exports = function (app, bodyParser) {
 
 		var id = req.body._id;
 
-		models.Patient.update({	_id: id	}, {
+		models.Patient.update({
+			_id: id
+		}, {
 			"firstName": req.body.firstName,
 			"lastName": req.body.lastName,
 			visits: {
