@@ -5,8 +5,6 @@ var router = express.Router();
 module.exports = function (app, bodyParser) {
 	var doctor, patient;
 
-	//doctor = new models.Doctor;
-
 	router.use(bodyParser.json());
 
 	//router to login doctor and chec if it exist or not

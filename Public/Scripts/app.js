@@ -77,18 +77,22 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
-	DoctorPatientService.getPatient().success(function (patient) {
-		$scope.currentPage = 0;
-		$scope.pageSize = 10;
-		$scope.data = patient;
-		$scope.numberOfPages = function () {
-			return Math.ceil($scope.data.length / $scope.pageSize);
-		}
-		for (var i = 0; i < $scope.data.length; i++) {
-			$scope.patientModel = $scope.data;
-		}
-	});
-
+	function getPatient(){
+		DoctorPatientService.getPatient().success(function (patient) {
+			$scope.currentPage = 0;
+			$scope.pageSize = 10;
+			$scope.data = patient;
+			$scope.numberOfPages = function () {
+				return Math.ceil($scope.data.length / $scope.pageSize);
+			}
+			for (var i = 0; i < $scope.data.length; i++) {
+				$scope.patientModel = $scope.data;
+			}
+		});
+	}
+	
+	getPatient();
+	
 	$scope.selectedPatient = function (data) {
 		DoctorPatientService.setPatientDetails(data);
 		$location.path('/patientDetails');
@@ -106,6 +110,12 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 	$scope.searchPatient = function(data){
 		DoctorPatientService.searchPatient(data).success(function(data){
 			console.log(data);
+			if(data.length > 0){
+				$scope.patientModel = data;
+			}else{
+				alert("User doesnt exist");
+				$scope.patientModel = getPatient();
+			}
 		});
 	}
 });
@@ -113,10 +123,6 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 
 app.controller("PatientDetailsController", function ($scope, $location, $window, DoctorPatientService) {
 	$scope.patient = DoctorPatientService.getPatientDetails();
-
-//	DoctorPatientService.getAllDoctor().success(function (data) {
-//		$scope.familyDoctors = data;
-//	});
 
 	$scope.editPatient = function (patient) {
 		console.log(patient);
