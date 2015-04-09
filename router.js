@@ -1,4 +1,3 @@
-
 var models = require('./Public/Model/user');
 var express = require('express');
 var router = express.Router();
@@ -12,37 +11,58 @@ module.exports = function (app, bodyParser) {
 	var doctor, patient;
 
 	router.use(bodyParser.json());
-	app.use(expressSession({secret: 'tommy', saveUninitialized:true,resave:true}));
+	app.use(expressSession({
+		secret: 'keyboard cat',
+		saveUninitialized: true,
+		resave: true
+	}));
 	app.use(passport.initialize());
 	app.use(passport.session());
-	
-	passport.serializeUser(function(user, done) {
+
+	passport.serializeUser(function (user, done) {
 		done(null, user.id);
 	});
 
-	passport.deserializeUser(function(id, done) {
+	passport.deserializeUser(function (id, done) {
 		models.Doctor.findById(id, function (err, user) {
 			done(err, user);
 		});
 	});
 
-	passport.use(new LocalStrategy(function(username, password, done) {
-		console.log(username);
-		console.log(password);
-			models.Doctor.findOne({ firstName: username }, function(err, user) {
-				if (err) { return done(err); }
-				if (!user) {
-					return done(null, false, { message: 'Incorrect username.' });
-				}
-				if (!user.validPassword(password)) {
-					return done(null, false, { message: 'Incorrect password.' });
-				}
-				return done(null, user);
-			});
-		}
-	));
+	//Passport authenticate the the login form using local stragety
+	app.post('/login', passport.authenticate('login', {
+		successRedirect: '/#/home',
+		failureRedirect: '/#/doctorRegister'
+	}));
 	
-	
+	passport.use('login', new LocalStrategy({
+			passReqToCallback: true
+		},
+		function (req,firstName,lastName, done) {
+		console.log(firstName);
+			models.Doctor.findOne({
+					'firstName': req.body.firstName,
+					'lastName': req.body.lastName
+				},
+				function (err, user) {
+					if (err)
+						return done(err);
+					if (!user) {
+						console.log('User Not Found with username ' + res.body.firstName);
+						return done(null, false,
+							req.flash('message', 'User Not found.'));
+					}
+					/*if (!isValidPassword(user, password)) {
+						console.log('Invalid Password');
+						return done(null, false,
+							req.flash('message', 'Invalid Password'));
+					}*/
+					return done(null, user);
+				}
+			);
+		}));
+
+
 	//router to login doctor and chec if it exist or not
 	/*router.route('/getDoctor').get(function (req, res) {
 
@@ -59,19 +79,17 @@ module.exports = function (app, bodyParser) {
 			}
 		})
 	});*/
-	
+
 	//Passport authenticate the the login form using local stragety
-	app.post('/doctorLogin',
-			 passport.authenticate ('local', { successRedirect: '/#/home',
-											  failureRedirect: '/#/doctorLogin'
-											 })
-			);
-	
+
+
 	function ensureAuthenticated(req, res, next) {
-		if (req.isAuthenticated()) { return next(); }
-		res.redirect('/#/Login')
+		if (req.isAuthenticated()) {
+			return next();
+		}
+		res.redirect('/#/home')
 	}
-	
+
 
 	// get all the doctor and send it back to angular
 	router.route('/getAllDoctor').get(function (req, res) {

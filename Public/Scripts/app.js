@@ -32,7 +32,7 @@ app.config(['$routeProvider',
 app.controller("DoctorRegisterController", function ($scope, $location, DoctorPatientService) {
 
 	$scope.submitDoctor = function (doctor) {
-		DoctorPatientService.putDoctor(doctor).success(function(data){ // if register doctor is success then do following
+		DoctorPatientService.putDoctor(doctor).success(function (data) { // if register doctor is success then do following
 			alert("Doctor was registered"); // alert that doctor was registered
 			$location.path('/doctorLogin'); // if registered the take to doctor login for doctor to login
 		});
@@ -43,18 +43,20 @@ app.controller("DoctorRegisterController", function ($scope, $location, DoctorPa
 app.controller("DoctorLogInController", function ($scope, $location, DoctorPatientService) {
 
 	$scope.loginDoctor = function (doctor) {
-		DoctorPatientService.getDoctor(doctor).success(function (data) {
-			if (doctor.firstName == data.firstName && doctor.lastName == data.lastName) {
-				DoctorPatientService.setCurrentDoctor(data);
-				$location.path('/home'); // if doctor login succeed then take doctor to home 
-			} else {
-				if (confirm("We didnt find the doctor. Would you like to register new doctor") == true) {
-					$location.path('/doctorRegister'); // if not succeed then take user to doctor register form
-				} else {
-					$location.path('/home'); // else take doctor to home page
-				}
-			}
-		});
+		console.log(doctor);
+//		DoctorPatientService.doctorLogin(doctor).success(function (data) {
+//			console.log(data);
+//			if (doctor.firstName == data.firstName && doctor.lastName == data.lastName) {
+//				//DoctorPatientService.setCurrentDoctor(data);
+//				//$location.path('/home'); // if doctor login succeed then take doctor to home 
+//			} else {
+//				/*if (confirm("We didnt find the doctor. Would you like to register new doctor") == true) {
+//					$location.path('/doctorRegister'); // if not succeed then take user to doctor register form
+//				} else {
+//					$location.path('/home'); // else take doctor to home page
+//				}*/
+//			}
+//		});
 	}
 });
 
@@ -81,7 +83,7 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
 
-	function getPatient(){
+	function getPatient() {
 		DoctorPatientService.getPatient().success(function (patient) { // get patient and show then in a list of 10
 			$scope.currentPage = 0;
 			$scope.pageSize = 10;
@@ -94,9 +96,9 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 			}
 		});
 	}
-	
+
 	getPatient(); // call get patient method for the lsit to work
-	
+
 	//if user select patient then take user to patietn Details form
 	$scope.selectedPatient = function (data) {
 		DoctorPatientService.setPatientDetails(data);
@@ -114,12 +116,12 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 	}
 
 	// search patient from search bar which gets the patient and show in the lsit
-	$scope.searchPatient = function(data){
-		DoctorPatientService.searchPatient(data).success(function(data){
+	$scope.searchPatient = function (data) {
+		DoctorPatientService.searchPatient(data).success(function (data) {
 			console.log(data);
-			if(data.length > 0){
+			if (data.length > 0) {
 				$scope.patientModel = data;
-			}else{
+			} else {
 				alert("User doesnt exist"); // if search come out null then  show this alert message
 				$scope.patientModel = getPatient(); // call the getpatient to populate will all the list
 			}
@@ -154,13 +156,8 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	}
 
 	//get Doctor based on firstName and lastName
-	this.getDoctor = function (data) {
-		return $http.get('/getDoctor', {
-			params: {
-				firstName: data.firstName,
-				lastName: data.lastName
-			}
-		});
+	this.doctorLogin = function (data) {
+		return $http.post('/login', data)
 	};
 
 	//put the doctor service
@@ -169,12 +166,12 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 	};
 
 	//search Patient service
-	this.searchPatient = function(data){
+	this.searchPatient = function (data) {
 		return $http({
-			method:"GET",
-			url:"/searchPatient",
-			params:{
-				data:data
+			method: "GET",
+			url: "/searchPatient",
+			params: {
+				data: data
 			}
 		})
 	}
