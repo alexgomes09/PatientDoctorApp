@@ -7,6 +7,7 @@ var doctorSchema = new mongoose.Schema({
 });
 var Doctor = mongoose.model('Doctor', doctorSchema); // mongoose model for Doctor
 
+
 //patientSchema for patientModel
 var patientSchema = new mongoose.Schema({
 	"firstName": String,
