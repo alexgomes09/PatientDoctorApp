@@ -5,11 +5,29 @@
 <h1>Register new doctor</h1>
 <hr><br><br>
 
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-lg-3 control-label">Username</label>  
+  <div class="col-lg-7">
+  <input type="text" name="username" placeholder="enter doctor's username" class="form-control input-lg" ng-model="doctor.username" required="">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-lg-3 control-label">Password</label>  
+  <div class="col-lg-7">
+  <input name="password" type="password" placeholder="enter doctor's password" class="form-control input-lg" ng-model="doctor.password" required="">
+  </div>
+</div>
+
 <!-- Text input-->
 <div class="form-group">
   <label class="col-lg-3 control-label">First Name</label>  
   <div class="col-lg-7">
-  <input id="textinput" type="text" placeholder="enter doctor's first name" class="form-control input-lg" ng-model="doctor.firstName" required="">
+  <input type="text" placeholder="enter doctor's first name" class="form-control input-lg" ng-model="doctor.firstName" required="">
   </div>
 </div>
 
@@ -17,7 +35,7 @@
 <div class="form-group">
   <label class="col-lg-3 control-label" for="textinput">Last Name</label>  
   <div class="col-lg-7">
-  <input id="textinput" name="textinput" type="text" placeholder="enter doctor's last name" class="form-control input-lg" ng-model="doctor.lastName" required="">
+  <input name="textinput" type="text" placeholder="enter doctor's last name" class="form-control input-lg" ng-model="doctor.lastName" required="">
     
   </div>
 </div>

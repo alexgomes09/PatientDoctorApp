@@ -1,5 +1,6 @@
 <a href="#/home" class="btn btn-lg btn-primary">&#60; Home</a>
-<form action="/login" method="post" class="container form-horizontal" ng-submit="loginDoctor(doctor)" name="doctorLogInForm">
+<form action="/login" method="post" class="container form-horizontal" name="doctorLogInForm">
+<!--ng-submit="loginDoctor(doctor)"-->
 
 	<!-- Form Name -->
 	<h1>Doctor Login Form</h1>
@@ -9,17 +10,17 @@
 
 	<!-- Text input-->
 	<div class="form-group">
-		<label class="col-lg-3 control-label">First Name</label>
+		<label class="col-lg-3 control-label">Username</label>
 		<div class="col-lg-7">
-			<input id="docFirstName" name="firstName" type="text" placeholder="enter doctor's first name" class="form-control input-lg" ng-model="doctor.firstName" required="">
+			<input  name="username" type="text" placeholder="enter doctor's username" class="form-control input-lg" ng-model="doctor.firstName" required="">
 		</div>
 	</div>
 
 	<!-- Text input-->
 	<div class="form-group">
-		<label class="col-lg-3 control-label" for="textinput">Last Name</label>
+		<label class="col-lg-3 control-label" for="textinput">Password</label>
 		<div class="col-lg-7">
-			<input id="textinput" name="lastName" type="text" placeholder="enter doctor's last name" class="form-control input-lg" ng-model="doctor.lastName" required="">
+			<input name="password" type="password" placeholder="enter doctor's password" class="form-control input-lg" ng-model="doctor.lastName" required="">
 
 		</div>
 	</div>
@@ -30,3 +31,4 @@
 		</div>
 	</div>
 </form>
+<a href="#/doctorRegister" class="btn btn-lg btn-primary">Register New Doctor</a>

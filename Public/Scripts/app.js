@@ -24,7 +24,7 @@ app.config(['$routeProvider',
 			controller: 'PatientDetailsController'
 		}).
 		otherwise({
-			redirectTo: '/home'
+			redirectTo: '/doctorLogin'
 		});
     }]);
 
@@ -42,27 +42,18 @@ app.controller("DoctorRegisterController", function ($scope, $location, DoctorPa
 // doctor login controller which handeles login as a doctor
 app.controller("DoctorLogInController", function ($scope, $location, DoctorPatientService) {
 
-	$scope.loginDoctor = function (doctor) {
-		console.log(doctor);
-//		DoctorPatientService.doctorLogin(doctor).success(function (data) {
-//			console.log(data);
-//			if (doctor.firstName == data.firstName && doctor.lastName == data.lastName) {
-//				//DoctorPatientService.setCurrentDoctor(data);
-//				//$location.path('/home'); // if doctor login succeed then take doctor to home 
-//			} else {
-//				/*if (confirm("We didnt find the doctor. Would you like to register new doctor") == true) {
-//					$location.path('/doctorRegister'); // if not succeed then take user to doctor register form
-//				} else {
-//					$location.path('/home'); // else take doctor to home page
-//				}*/
-//			}
-//		});
-	}
 });
 
 // patient Controller which get all the doctor to show in the combo box
 app.controller("PatientController", function ($scope, $window, $location, DoctorPatientService) {
 
+	DoctorPatientService.checkLogin().success(function (data){
+		if(data.message != null)	{
+		 $location.path('/doctorLogin');
+		 return;
+		}
+	});
+	
 	DoctorPatientService.getAllDoctor().success(function (data) { // show doctor in the combo box
 		$scope.familyDoctors = data;
 	});
@@ -79,6 +70,14 @@ app.controller("PatientController", function ($scope, $window, $location, Doctor
 
 // patient lsit controller which is the main controller.
 app.controller("PatientListController", function ($scope, $route, $window, $location, DoctorPatientService) {
+	
+	DoctorPatientService.checkLogin().success(function (data){
+		if(data.message != null)	{
+		 $location.path('/doctorLogin');
+		 return;
+		}
+	});
+	
 	if (Object.keys(DoctorPatientService.getCurrentDoctor()).length > 0) {
 		$scope.currentDoctor = DoctorPatientService.getCurrentDoctor().firstName + " " + DoctorPatientService.getCurrentDoctor().lastName;
 	}
@@ -131,6 +130,13 @@ app.controller("PatientListController", function ($scope, $route, $window, $loca
 
 // Patient details controller deals with filling up all the inputs with whatever patient  user clicked on
 app.controller("PatientDetailsController", function ($scope, $location, $window, DoctorPatientService) {
+	
+	DoctorPatientService.checkLogin().success(function (data){
+		if(data.message != null)	{
+		 $location.path('/doctorLogin');
+		}
+	});
+	
 	$scope.patient = DoctorPatientService.getPatientDetails();
 
 	$scope.editPatient = function (patient) { // allow user the edit the patietent
@@ -149,15 +155,19 @@ app.service("DoctorPatientService", ['$http', function ($http) {
 
 	var currentDoctor = {};
 	var patientDetails = {};
-
+	
 	// getAll doctor service
 	this.getAllDoctor = function (data) {
 		return $http.get('/getAllDoctor', data);
 	}
+	
+	this.checkLogin = function (data){
+		return $http({url: '/checkLogin', method:"GET"})
+	}
 
 	//get Doctor based on firstName and lastName
 	this.doctorLogin = function (data) {
-		return $http.post('/login', data)
+		return $http({url: '/login', method:"POST", data:data});
 	};
 
 	//put the doctor service

@@ -1,14 +1,15 @@
 var mongoose = require('mongoose');
+var bcrypt = require("bcrypt");
 
 //doctorSchema for doctorModel
 var doctorSchema = new mongoose.Schema({
+	"username": String,
+	"password":String,
 	"firstName": String,
 	"lastName": String
 });
 
-
 // Bcrypt middleware
-/*
 doctorSchema.pre('save', function(next) {
 	var user = this;
 
@@ -24,8 +25,6 @@ doctorSchema.pre('save', function(next) {
 		});
 	});
 });
-*/
-
 
 // Password verification
 doctorSchema.methods.comparePassword = function(candidatePassword, cb) {
@@ -34,10 +33,6 @@ doctorSchema.methods.comparePassword = function(candidatePassword, cb) {
 		cb(null, isMatch);
 	});
 };
-
-
-
-
 
 
 //patientSchema for patientModel
